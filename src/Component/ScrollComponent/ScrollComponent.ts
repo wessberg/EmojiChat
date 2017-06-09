@@ -21,6 +21,7 @@ export class ScrollComponent extends Component implements IScrollComponent {
 	}
 
 	public static styles () {
+		// language=CSS
 		return `
 
 			:host {

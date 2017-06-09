@@ -10,7 +10,7 @@ export class MediaComponent extends Component implements IMediaComponent {
 		return ["loading", "loaded", "src", "cover", "contained"];
 	}
 
-	public _loading: boolean = false;
+	private _loading: boolean = false;
 
 	protected get loading (): boolean {
 		return this._loading;
@@ -34,6 +34,14 @@ export class MediaComponent extends Component implements IMediaComponent {
 		else if (this.hasAttribute("loaded")) this.removeAttribute("loaded");
 	}
 
+	protected get hasMedia (): boolean {
+		return this.hasAttribute("src");
+	}
+
+	protected get currentMedia (): MediaStream|string|null {
+		return this.getAttribute("src");
+	}
+
 	public async unload (): Promise<void> {
 		if (!this.hasAttribute("src")) return;
 		else {
@@ -44,7 +52,7 @@ export class MediaComponent extends Component implements IMediaComponent {
 	}
 
 	public async load (): Promise<void> {
-		if (!this.hasAttribute("src")) throw new ReferenceError(`'load()' could not find any media to load!`);
+		if (!this.hasMedia) throw new ReferenceError(`'load()' could not find any media to load!`);
 
 		if (this.loaded) throw new TypeError(`'load()' was called, but the media is already loaded!`);
 		if (this.loading) return;
@@ -69,6 +77,9 @@ export class MediaComponent extends Component implements IMediaComponent {
 				if (newValue == null) return await this.unload();
 				else if (this.hasAttribute("autoload")) {
 					await this.load();
+				} else {
+					this.loaded = false;
+					this.loading = false;
 				}
 				break;
 
@@ -85,8 +96,8 @@ export class MediaComponent extends Component implements IMediaComponent {
 				break;
 
 			case "loading":
-				if (this.loading && this.hasAttribute("src")) {
-					return await this.loadMedia(<string>this.getAttribute("src"));
+				if (this.loading && this.hasMedia) {
+					return await this.loadMedia(<string>this.currentMedia);
 				}
 				break;
 

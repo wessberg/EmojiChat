@@ -1,5 +1,4 @@
 import { Config } from "@wessberg/environment";
-import { SERVER_CERT, SERVER_KEY } from "../Tool/DevServer/TLS/Keys";
 const SRC_DIRECTORY = "src";
 const ENTRY_NAME = "index.ts";
 const FAVICON_NAME = "favicon.ico";
@@ -216,16 +215,6 @@ export const Resource = {
                     return relativePath(SHARED_CSS_JS_SRC_PATH, steps);
                 }
             }
-        }
-    },
-    devServer: {
-        meta: {
-            host: "localhost",
-            port: 3000
-        },
-        tls: {
-            key: SERVER_KEY,
-            cert: SERVER_CERT
         }
     },
     build: {

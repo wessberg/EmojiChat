@@ -28,6 +28,7 @@ export class RippleComposite extends FeedbackComposite implements IRippleComposi
 	}
 
 	public static styles (): string {
+		// language=CSS
 		return `
 
 			#highlight {

@@ -1,6 +1,11 @@
 import {IComponent, IComponentConstructor} from "./IComponent";
 import {Resource} from "../../../Resource/Resource";
 
+export function uses (_: (new () => IComponent)[]) {
+	return (_: IComponentConstructor) => {
+	};
+}
+
 export function selector (selector: string) {
 	return (prototype: IComponentConstructor) => {
 		customElements.define(selector, prototype);

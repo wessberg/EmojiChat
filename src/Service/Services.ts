@@ -12,6 +12,10 @@ import {GlobalEventBlocker} from "../EventHandler/GlobalEventBlocker";
 import {INavigationUtil} from "./NavigationUtil/Interface/INavigationUtil";
 import {NavigationUtil} from "./NavigationUtil/NavigationUtil";
 import {Routes} from "../Router/Routes";
+import {IMediaDeviceUtil} from "./MediaDeviceUtil/Interface/IMediaDeviceUtil";
+import {MediaDeviceUtil} from "./MediaDeviceUtil/MediaDeviceUtil";
+import {IMediaStreamStore} from "../Store/MediaStreamStore/Interface/IMediaStreamStore";
+import {MediaStreamStore} from "../Store/MediaStreamStore/MediaStreamStore";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -20,3 +24,5 @@ export const svgIconUtil: ISvgIconUtil = new SvgIconUtil();
 export const waitOperations: IWaitOperations = new WaitOperations();
 export const animationOperations: IAnimationOperations = new AnimationOperations();
 export const navigationUtil: INavigationUtil = new NavigationUtil(Routes);
+export const mediaDeviceUtil: IMediaDeviceUtil = new MediaDeviceUtil();
+export const mediaStreamStore: IMediaStreamStore = new MediaStreamStore();

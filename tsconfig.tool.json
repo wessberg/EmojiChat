@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": ["Tool/**/*"],
   "compilerOptions": {
-    "outDir": "Tool/Compiled"
+    "outDir": "Tool/Compiled",
+    "target": "es2016"
   }
 }

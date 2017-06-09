@@ -5,7 +5,6 @@ import * as mime from "mime";
 import {resolve} from "path";
 import {Config} from "@wessberg/environment";
 
-
 export interface IResponseHeaders {
 	"Content-Type"?: string;
 	"content-encoding"?: string;
@@ -105,15 +104,15 @@ export class DevServer {
 
 	private resourceSupportsGzip (path: string): boolean {
 		// In general, all resources except media and PDFs should be gzipped.
-		return  !path.endsWith(".pdf") &&
-						!path.endsWith(".jpg") &&
-						!path.endsWith(".jpeg") &&
-						!path.endsWith(".png") &&
-						!path.endsWith(".webp");
+		return !path.endsWith(".pdf") &&
+			!path.endsWith(".jpg") &&
+			!path.endsWith(".jpeg") &&
+			!path.endsWith(".png") &&
+			!path.endsWith(".webp");
 	}
 
 	private requestAcceptsGzip (request: ServerRequest): boolean {
-		const acceptHeaders =  request.headers["accept-encoding"];
+		const acceptHeaders = request.headers["accept-encoding"];
 		return acceptHeaders.includes("gzip");
 	}
 

@@ -6,6 +6,7 @@ export class CardComponent extends Component implements ICardComponent {
 	public role = "complementary";
 
 	public static styles (): string {
+		// language=CSS
 		return `
 
 		:host([center]) {

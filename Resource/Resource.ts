@@ -1,6 +1,5 @@
 import {IResource, IStaticAsset} from "./Interface/IResource";
 import {Config} from "@wessberg/environment";
-import {SERVER_CERT, SERVER_KEY} from "../Tool/DevServer/TLS/Keys";
 
 const SRC_DIRECTORY = "src";
 const ENTRY_NAME = "index.ts";
@@ -216,19 +215,9 @@ export const Resource: IResource = {
 					return relativePath(INDEX_HTML_JS_SRC_PATH, steps);
 				},
 				sharedCssJS (steps?: number) {
-					return relativePath(SHARED_CSS_JS_SRC_PATH, steps)
+					return relativePath(SHARED_CSS_JS_SRC_PATH, steps);
 				}
 			}
-		}
-	},
-	devServer: {
-		meta: {
-			host: "localhost",
-			port: 3000
-		},
-		tls: {
-			key: SERVER_KEY,
-			cert: SERVER_CERT
 		}
 	},
 	build: {

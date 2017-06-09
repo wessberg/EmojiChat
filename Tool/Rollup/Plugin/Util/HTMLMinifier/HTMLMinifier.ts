@@ -6,5 +6,5 @@ export function minifyHTML (html: string): string {
 		minifyJS: true,
 		removeComments: true,
 		collapseWhitespace: true
-	})
+	});
 }

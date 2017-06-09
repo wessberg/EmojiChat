@@ -13,6 +13,7 @@ import ManifestUpgrader from "../Plugin/ManifestUpgrader/ManifestUpgrader";
 import SharedCSSUpgrader from "../Plugin/SharedCSSUpgrader/SharedCSSUpgrader";
 import {Resource} from "../../../Resource/Resource";
 import {join} from "path";
+import {DevServerResource} from "../../../Resource/DevServerResource";
 
 const STEP_UP = "../";
 const STEPS_UP = STEP_UP.repeat(5);
@@ -56,7 +57,8 @@ const PRODUCTION_PLUGINS: IRollupPlugin[] = Config.PRODUCTION ? [
 				fromRoot(Resource.app.path.dist.favicon()),
 				fromRoot(Resource.app.path.dist.indexHtml()),
 				fromRoot(Resource.app.path.dist.polyfill.webAnimations()),
-				fromRoot(Resource.app.path.dist.polyfill.pointerEvents())
+				fromRoot(Resource.app.path.dist.polyfill.pointerEvents()),
+				fromRoot(Resource.app.path.dist.sharedCss())
 			]
 		})
 	}
@@ -73,8 +75,8 @@ const BASE_PLUGINS: IRollupPlugin[] = [
 		order: 2,
 		plugin: typescriptPlugin(<any>{
 			tsconfig: fromRoot("tsconfig.json"),
-			include: [ fromRoot("*.ts+(|x)"), fromRoot("**/*.ts+(|x)") ],
-			exclude: [ fromRoot("*.d.ts"), fromRoot("**/*.d.ts") ],
+			include: [fromRoot("*.ts+(|x)"), fromRoot("**/*.ts+(|x)")],
+			exclude: [fromRoot("*.d.ts"), fromRoot("**/*.d.ts")],
 			cacheRoot: "./.rts2_cache"
 		})
 	},
@@ -114,15 +116,15 @@ const sortPlugins = (a: IRollupPlugin, b: IRollupPlugin) => {
 };
 
 async function serve (): Promise<void> {
-	const {key, cert} = Resource.devServer.tls;
-	if (Environment.TLS && (key == null || cert == null )) throw new ReferenceError(`No key or certificate was found. Couldn't serve via TLS!`);
+	const {key, cert} = DevServerResource.tls;
+	if (key == null || cert == null) throw new ReferenceError(`No key or certificate was found. Couldn't serve via TLS!`);
 
 	const devServer = new DevServer(
 		fromRoot(Resource.app.path.dist.directory()),
-		Resource.devServer.meta.host,
-		Resource.devServer.meta.port,
-		Environment.TLS ? key : undefined,
-		Environment.TLS ? cert : undefined
+		DevServerResource.meta.host,
+		DevServerResource.meta.port,
+		key,
+		cert
 	);
 
 	try {

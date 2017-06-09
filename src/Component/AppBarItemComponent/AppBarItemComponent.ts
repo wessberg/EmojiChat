@@ -1,8 +1,9 @@
-import {Component, selector} from "../Component/Component";
+import {Component, selector, uses} from "../Component/Component";
 import {IAppBarItemComponent} from "./Interface/IAppBarItemComponent";
-import "../ButtonComponent/ButtonComponent";
+import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 
 @selector("app-bar-item-element")
+@uses([ButtonComponent])
 export class AppBarItemComponent extends Component implements IAppBarItemComponent {
 
 	public static styles (): string {

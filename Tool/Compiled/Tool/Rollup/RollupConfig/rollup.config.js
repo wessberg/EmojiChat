@@ -13,6 +13,7 @@ import ManifestUpgrader from "../Plugin/ManifestUpgrader/ManifestUpgrader";
 import SharedCSSUpgrader from "../Plugin/SharedCSSUpgrader/SharedCSSUpgrader";
 import { Resource } from "../../../Resource/Resource";
 import { join } from "path";
+import { DevServerResource } from "../../../Resource/DevServerResource";
 const STEP_UP = "../";
 const STEPS_UP = STEP_UP.repeat(5);
 const fromRoot = (path) => join(__dirname, STEPS_UP, path);
@@ -53,7 +54,8 @@ const PRODUCTION_PLUGINS = Config.PRODUCTION ? [
                 fromRoot(Resource.app.path.dist.favicon()),
                 fromRoot(Resource.app.path.dist.indexHtml()),
                 fromRoot(Resource.app.path.dist.polyfill.webAnimations()),
-                fromRoot(Resource.app.path.dist.polyfill.pointerEvents())
+                fromRoot(Resource.app.path.dist.polyfill.pointerEvents()),
+                fromRoot(Resource.app.path.dist.sharedCss())
             ]
         })
     }
@@ -111,10 +113,10 @@ const sortPlugins = (a, b) => {
 };
 function serve() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
-        const { key, cert } = Resource.devServer.tls;
-        if (Environment.TLS && (key == null || cert == null))
+        const { key, cert } = DevServerResource.tls;
+        if (key == null || cert == null)
             throw new ReferenceError(`No key or certificate was found. Couldn't serve via TLS!`);
-        const devServer = new DevServer(fromRoot(Resource.app.path.dist.directory()), Resource.devServer.meta.host, Resource.devServer.meta.port, Environment.TLS ? key : undefined, Environment.TLS ? cert : undefined);
+        const devServer = new DevServer(fromRoot(Resource.app.path.dist.directory()), DevServerResource.meta.host, DevServerResource.meta.port, key, cert);
         try {
             yield devServer.listen();
         }

@@ -21,6 +21,7 @@ export class Page extends ScrollComponent implements IPage {
 	}
 
 	public static styles (): string {
+		// language=CSS
 		return super.styles() + `
 			:host {
 				display: none;

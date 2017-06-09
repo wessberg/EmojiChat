@@ -254,7 +254,7 @@ export const sharedCss =
       }
 
       *:focus {
-          outline: none;
+          outline: none !important;
       }
 
       h1,

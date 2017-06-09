@@ -13,6 +13,7 @@ export class FocusableComposite extends Component implements IComposite {
 	private pointerInitiated: boolean = false;
 
 	public styles () {
+		// language=CSS
 		return `
 			:host {
 				display: none;

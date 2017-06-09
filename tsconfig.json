@@ -16,7 +16,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "target": "es2016",
+    "target": "es2017",
     "sourceMap": true,
     "outDir": "./compiled",
     "lib": [

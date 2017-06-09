@@ -67,21 +67,6 @@ export interface IBrowserResource {
 	path: IBrowserPath;
 }
 
-export interface IDevServerTLS {
-	key: string;
-	cert: string;
-}
-
-export interface IDevServerResource {
-	meta: IDevServerMeta;
-	tls: IDevServerTLS;
-}
-
-export interface IDevServerMeta {
-	host: string;
-	port: number;
-}
-
 export interface IAppResource {
 	meta: IAppMeta;
 	path: IAppPath;
@@ -119,6 +104,5 @@ export interface IAppMeta {
 export interface IResource {
 	browser: IBrowserResource;
 	app: IAppResource;
-	devServer: IDevServerResource;
 	build: IBuildResource;
 }
