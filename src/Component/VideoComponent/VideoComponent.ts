@@ -133,6 +133,7 @@ export class VideoComponent extends MediaComponent implements IVideoComponent {
 		await this.pause();
 		const video = <HTMLVideoElement>this.element("video");
 		video.currentTime = 0;
+		await this.setInitialState();
 	}
 
 	public async onPlaceholderTapped (): Promise<void> {
@@ -166,6 +167,7 @@ export class VideoComponent extends MediaComponent implements IVideoComponent {
 		const video = <HTMLVideoElement> this.element("video");
 		video.removeAttribute("src");
 		video.srcObject = null;
+		this.loaded = false;
 	}
 
 	protected async attributeChangedCallback (attrName: string, _: string, newValue: string): Promise<void> {

@@ -8,6 +8,7 @@ import {ButtonComponent} from "../../Component/ButtonComponent/ButtonComponent";
 import {GlobalObject} from "@wessberg/globalobject";
 import {eventUtil} from "../../Service/Services";
 import {EventName} from "../../EventName/EventName";
+import {Resource} from "../../../Resource/Resource";
 
 @selector("frame-element")
 @uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent])
@@ -31,6 +32,7 @@ export class Frame extends Component implements IFrame {
         app-drawer-element > button-element > p {
             padding-left: var(--distance-minimum);
         }
+			
 		`;
 	}
 
@@ -42,6 +44,7 @@ export class Frame extends Component implements IFrame {
             <app-bar-item-element id="menuButton" no-underline slot="leftIcon">
                 <icon-element icon="menu" light medium></icon-element>
             </app-bar-item-element>
+            <h6 slot="title">${Resource.app.meta.title}</h6>
         </app-bar-element>
         <app-drawer-element>
             <button-element no-background dark slot="drawer">

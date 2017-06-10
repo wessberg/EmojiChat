@@ -14,6 +14,11 @@ export class FaceTrackingModelStore extends Store implements IFaceTrackingModelS
 		return FaceTrackingModelStore.READY;
 	}
 
+	public clearTracker (): void {
+		if (FaceTrackingModelStore.TRACKER == null) return;
+		FaceTrackingModelStore.TRACKER.stop();
+	}
+
 	public async getTracker (): Promise<IFaceTrackingTracker> {
 		const existing = FaceTrackingModelStore.TRACKER;
 		if (existing != null) return existing;
@@ -22,7 +27,12 @@ export class FaceTrackingModelStore extends Store implements IFaceTrackingModelS
 
 		// The tracker is bound to "clm" on the global object.
 		const wrapper = <IFaceTrackingWrapper>(<any>window).clm;
-		const instance = new wrapper.tracker();
+		const instance = new wrapper.tracker({
+			useWebGL: true
+		});
+		instance.getWebGLContext = (canvas: HTMLCanvasElement): WebGLRenderingContext => (<any>window).getWebGLContext(canvas);
+		instance.loadShader = (context: WebGLRenderingContext, program: string, kind: number): WebGLShader => (<any>window).loadShader(context, program, kind);
+		instance.createProgram = (context: WebGLRenderingContext, shaders: WebGLShader[]): WebGLProgram => (<any>window).createProgram(context, shaders);
 		FaceTrackingModelStore.TRACKER = instance;
 		return instance;
 	}
@@ -37,6 +47,11 @@ export class FaceTrackingModelStore extends Store implements IFaceTrackingModelS
 
 		// It will be bound to the global object on key "__model[N]__".
 		const faceTrackingModel = <IFaceTrackingModel>(<any>window)[`__${model}__`];
+
+		// set eigenvector 9 and 11 to not be regularized. This is to better detect motion of the eyebrows
+		faceTrackingModel.shapeModel.nonRegularizedVectors.push(9);
+		faceTrackingModel.shapeModel.nonRegularizedVectors.push(11);
+
 		FaceTrackingModelStore.LOADED_MODELS.set(model, faceTrackingModel);
 		return faceTrackingModel;
 	}

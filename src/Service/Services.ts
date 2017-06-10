@@ -18,10 +18,15 @@ import {IMediaStreamStore} from "../Store/MediaStreamStore/Interface/IMediaStrea
 import {MediaStreamStore} from "../Store/MediaStreamStore/MediaStreamStore";
 import {IMediaStreamUtil} from "./MediaStreamUtil/Interface/IMediaStreamUtil";
 import {MediaStreamUtil} from "./MediaStreamUtil/MediaStreamUtil";
-import {IFaceTrackingUtil} from "./FaceTrackingUtil/Interface/IFaceTrackingUtil";
-import {FaceTrackingUtil} from "./FaceTrackingUtil/FaceTrackingUtil";
 import {IFaceTrackingModelStore} from "../Store/FaceTrackingModelStore/Interface/IFaceTrackingModelStore";
 import {FaceTrackingModelStore} from "../Store/FaceTrackingModelStore/FaceTrackingModelStore";
+import {IEmotionModelStore} from "../Store/EmotionModelStore/Interface/IEmotionModelStore";
+import {EmotionModelStore} from "../Store/EmotionModelStore/EmotionModelStore";
+import {IEmotionClassifierUtil} from "./EmotionClassifierUtil/Interface/IEmotionClassifierUtil";
+import {EmotionClassifierUtil} from "./EmotionClassifierUtil/EmotionClassifierUtil";
+import {EmotionModel} from "../Model/EmotionModel/EmotionModel";
+import {IFaceDeformerUtil} from "./FaceDeformerUtil/Interface/IFaceDeformerUtil";
+import {FaceDeformerUtil} from "./FaceDeformerUtil/FaceDeformerUtil";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -33,5 +38,7 @@ export const navigationUtil: INavigationUtil = new NavigationUtil(Routes);
 export const mediaDeviceUtil: IMediaDeviceUtil = new MediaDeviceUtil();
 export const mediaStreamUtil: IMediaStreamUtil = new MediaStreamUtil();
 export const mediaStreamStore: IMediaStreamStore = new MediaStreamStore();
+export const emotionModelStore: IEmotionModelStore = new EmotionModelStore(EmotionModel);
 export const faceTrackingModelStore: IFaceTrackingModelStore = new FaceTrackingModelStore();
-export const faceTrackingUtil: IFaceTrackingUtil = new FaceTrackingUtil();
+export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifierUtil(emotionModelStore.getModel());
+export const faceDeformerUtil: IFaceDeformerUtil = new FaceDeformerUtil()

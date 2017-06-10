@@ -45,14 +45,18 @@ const WEB_ANIMATIONS_POLYFILL_SRC_PATH = `${WEB_ANIMATIONS_POLYFILL_DIRECTORY_SR
 const POINTER_EVENTS_POLYFILL_SRC_PATH = `${POINTER_EVENTS_POLYFILL_DIRECTORY_SRC_PATH}/${POINTER_EVENTS_POLYFILL_NAME}`;
 const PRODUCT_ICONS_DIRECTORY_NAME = "Product";
 const STANDARD_ICONS_DIRECTORY_NAME = "Standard";
+const EMOJI_ICONS_DIRECTORY_NAME = "Emoji";
 const PRODUCT_ICONS_NAME = "ProductIcons.ts";
+const EMOJI_ICONS_NAME = "EmojiIcons.ts";
 const IOS_ICONS_NAME = "iOSIcons.ts";
 const MATERIAL_ICONS_NAME = "MaterialIcons.ts";
 const IMAGE_SRC_PATH = `${ASSET_SRC_PATH}/${IMAGE_NAME}`;
 const ICON_SRC_PATH = `${ASSET_SRC_PATH}/${ICON_NAME}`;
 const PRODUCT_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${PRODUCT_ICONS_DIRECTORY_NAME}`;
+const EMOJI_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${EMOJI_ICONS_DIRECTORY_NAME}`;
 const STANDARD_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${STANDARD_ICONS_DIRECTORY_NAME}`;
 const PRODUCT_ICONS_SRC_PATH = `${PRODUCT_ICONS_DIRECTORY}/${PRODUCT_ICONS_NAME}`;
+const EMOJI_ICONS_SRC_PATH = `${EMOJI_ICONS_DIRECTORY}/${EMOJI_ICONS_NAME}`;
 const MATERIAL_ICONS_SRC_PATH = `${STANDARD_ICONS_DIRECTORY}/${MATERIAL_ICONS_NAME}`;
 const IOS_ICONS_SRC_PATH = `${STANDARD_ICONS_DIRECTORY}/${IOS_ICONS_NAME}`;
 const INDEX_NAME = `index.${Config.MOBILE ? "mobile" : "desktop"}`;
@@ -189,8 +193,8 @@ const STATIC_ASSETS: IStaticAsset[] = [
 export const Resource: IResource = {
 	app: {
 		meta: {
-			title: "Fovea",
-			shortName: "Fovea",
+			title: "EmojiChat",
+			shortName: "EmojiChat",
 			display: "standalone",
 			orientation: "portrait-primary",
 			direction: "ltr",
@@ -299,6 +303,14 @@ export const Resource: IResource = {
 							},
 							productIcons (steps?: number) {
 								return relativePath(PRODUCT_ICONS_SRC_PATH, steps);
+							}
+						},
+						emoji: {
+							directory (steps?: number) {
+								return relativePath(EMOJI_ICONS_DIRECTORY, steps);
+							},
+							emojiIcons (steps?: number) {
+								return relativePath(EMOJI_ICONS_SRC_PATH, steps);
 							}
 						},
 						standard: {

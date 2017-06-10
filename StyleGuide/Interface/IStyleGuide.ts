@@ -7,6 +7,7 @@ export interface IColorStyleGuide {
 	primaryRGB: string;
 	accentRGB: string;
 	backgroundRGB: string;
+	orangeRGB: string;
 }
 
 export interface IStyleGuide {

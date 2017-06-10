@@ -16,6 +16,8 @@ export const sharedCss =
           --_rgb-inner-accent-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.accentRGB})`, -10))};
           --_rgb-inner-red: ${styleGuide.color.redRGB};
           --_rgb-inner-red-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.redRGB})`, -10))};
+          --_rgb-inner-orange: ${styleGuide.color.orangeRGB};
+          --_rgb-inner-orange-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.orangeRGB})`, -10))};
           --_rgb-inner-blue: ${styleGuide.color.blueRGB};
           --_rgb-inner-blue-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.blueRGB})`, -10))};
 
@@ -74,6 +76,17 @@ export const sharedCss =
           --color-red-26: rgba(var(--_rgb-inner-red), 0.26);
           --color-red-12: rgba(var(--_rgb-inner-red), 0.12);
           --color-red-06: rgba(var(--_rgb-inner-red), 0.06);
+          
+          --color-orange-120: rgb(var(--_rgb-inner-orange-darker));
+          --color-orange-100: rgb(var(--_rgb-inner-orange));
+          --color-orange-87: rgba(var(--_rgb-inner-orange), 0.87);
+          --color-orange-70: rgba(var(--_rgb-inner-orange), 0.70);
+          --color-orange-54: rgba(var(--_rgb-inner-orange), 0.54);
+          --color-orange-50: rgba(var(--_rgb-inner-orange), 0.50);
+          --color-orange-38: rgba(var(--_rgb-inner-orange), 0.38);
+          --color-orange-26: rgba(var(--_rgb-inner-orange), 0.26);
+          --color-orange-12: rgba(var(--_rgb-inner-orange), 0.12);
+          --color-orange-06: rgba(var(--_rgb-inner-orange), 0.06);
 
           --color-blue-120: rgb(var(--_rgb-inner-blue-darker));
           --color-blue-100: rgb(var(--_rgb-inner-blue));

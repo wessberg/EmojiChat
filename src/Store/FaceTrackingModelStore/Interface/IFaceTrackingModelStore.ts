@@ -37,14 +37,25 @@ export interface IFaceTrackingTracker {
 	init(model: IFaceTrackingModel): void;
 	start (videoElement: HTMLVideoElement): void;
 	getCurrentPosition (): number[][];
+	getCurrentParameters (): number[];
+	getConvergence(): number;
 	draw (canvas: HTMLCanvasElement): void;
+	stop (): void;
+	getWebGLContext(canvas: HTMLCanvasElement): WebGLRenderingContext;
+	loadShader (context: WebGLRenderingContext, program: string, kind: number): WebGLShader;
+	createProgram (context: WebGLRenderingContext, shaders: WebGLShader[]): WebGLProgram;
+}
+
+export interface IFaceTrackingConstructorOptions {
+	 useWebGL: boolean;
 }
 
 export interface IFaceTrackingWrapper {
-	tracker: new () => IFaceTrackingTracker;
+	tracker: new (options?: IFaceTrackingConstructorOptions) => IFaceTrackingTracker;
 }
 
 export interface IFaceTrackingModelStore extends IStore {
 	getTracker (): Promise<IFaceTrackingTracker>;
+	clearTracker (): void;
 	getModel (model: keyof ITrackerModelPath): Promise<IFaceTrackingModel>;
 }

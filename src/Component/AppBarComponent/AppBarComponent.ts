@@ -55,6 +55,8 @@ export class AppBarComponent extends Component implements IAppBarComponent {
         #titleSlot::slotted(*) {
             user-select: none !important;
             font-size: var(--font-size-title) !important;
+						padding-left: var(--distance-minimum);
+						padding-bottom: 2px !important;
         }
 
         ::slotted(*) {

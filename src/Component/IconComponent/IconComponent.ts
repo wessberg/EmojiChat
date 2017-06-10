@@ -46,8 +46,20 @@ export class IconComponent extends Component implements IIconComponent {
         }
 
         :host([warning]) #fill_target,
-        :host([warning]) {
+        :host([red]) #fill_target,
+        :host([warning]),
+				:host([red]) {
             fill: var(--color-red-100);
+        }
+				
+        :host([blue]) #fill_target,
+        :host([blue]) {
+            fill: var(--color-blue-100);
+        }
+
+        :host([orange]) #fill_target,
+        :host([orange]) {
+            fill: var(--color-orange-100);
         }
 
         :host {

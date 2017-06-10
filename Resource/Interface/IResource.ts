@@ -23,11 +23,17 @@ export interface IIconPath {
 	directory: DirectoryGetter;
 	product: IProductIconsPath;
 	standard: IStandardIconsPath;
+	emoji: IEmojiIconsPath;
 }
 
 export interface IProductIconsPath {
 	directory: DirectoryGetter;
 	productIcons: DirectoryGetter;
+}
+
+export interface IEmojiIconsPath {
+	directory: DirectoryGetter;
+	emojiIcons: DirectoryGetter;
 }
 
 export interface IStandardIconsPath {
