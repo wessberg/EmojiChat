@@ -29,7 +29,7 @@ export class MediaDeviceUtil implements IMediaDeviceUtil {
 				echoCancellation: true
 			},
 			video: video == null ? false : {
-				facingMode: CameraFacingKind[video]
+				facingMode: video
 			}
 		};
 

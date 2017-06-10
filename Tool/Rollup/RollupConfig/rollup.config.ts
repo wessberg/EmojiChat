@@ -58,6 +58,13 @@ const PRODUCTION_PLUGINS: IRollupPlugin[] = Config.PRODUCTION ? [
 				fromRoot(Resource.app.path.dist.indexHtml()),
 				fromRoot(Resource.app.path.dist.polyfill.webAnimations()),
 				fromRoot(Resource.app.path.dist.polyfill.pointerEvents()),
+				fromRoot(Resource.app.path.dist.lib.tracker.tracker()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model1()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model2()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model3()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model4()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model5()),
+				fromRoot(Resource.app.path.dist.lib.tracker.model.model6()),
 				fromRoot(Resource.app.path.dist.sharedCss())
 			]
 		})

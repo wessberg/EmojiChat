@@ -5,4 +5,5 @@ export interface IVideoComponent extends IMediaComponent {
 	play (): Promise<void>;
 	pause (): Promise<void>;
 	stop (): Promise<void>;
+	nativeVideoElement: HTMLVideoElement;
 }

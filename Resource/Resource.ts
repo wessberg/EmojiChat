@@ -14,6 +14,26 @@ const ASSET_SRC_PATH = `${SRC_DIRECTORY}/${ASSET_NAME}`;
 const IMAGE_NAME = "Image";
 const ICON_NAME = "Image";
 const POLYFILL_NAME = "Polyfill";
+const LIB_NAME = "Lib";
+const TRACKER_LIB_MODEL_NAME = "Model";
+const LIB_SRC_PATH = `${SRC_DIRECTORY}/${LIB_NAME}`;
+const TRACKER_LIB_DIRECTORY_NAME = "TrackerLib";
+const TRACKER_LIB_NAME = "tracker.min.js";
+const TRACKER_LIB_MODEL1_NAME = "model1.min.js";
+const TRACKER_LIB_MODEL2_NAME = "model2.min.js";
+const TRACKER_LIB_MODEL3_NAME = "model3.min.js";
+const TRACKER_LIB_MODEL4_NAME = "model4.min.js";
+const TRACKER_LIB_MODEL5_NAME = "model5.min.js";
+const TRACKER_LIB_MODEL6_NAME = "model6.min.js";
+const TRACKER_LIB_DIRECTORY_SRC_PATH = `${LIB_SRC_PATH}/${TRACKER_LIB_DIRECTORY_NAME}`;
+const TRACKER_LIB_MODEL_SRC_PATH = `${TRACKER_LIB_DIRECTORY_SRC_PATH}/${TRACKER_LIB_MODEL_NAME}`;
+const TRACKER_LIB_SRC_PATH = `${TRACKER_LIB_DIRECTORY_SRC_PATH}/${TRACKER_LIB_NAME}`;
+const TRACKER_LIB_MODEL1_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL1_NAME}`;
+const TRACKER_LIB_MODEL2_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL2_NAME}`;
+const TRACKER_LIB_MODEL3_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL3_NAME}`;
+const TRACKER_LIB_MODEL4_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL4_NAME}`;
+const TRACKER_LIB_MODEL5_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL5_NAME}`;
+const TRACKER_LIB_MODEL6_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL6_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIRECTORY_NAME = "WebAnimationsPolyfill";
 const POINTER_EVENTS_POLYFILL_DIRECTORY_NAME = "PointerEventsPolyfill";
 const WEB_ANIMATIONS_POLYFILL_NAME = "web-animations.min.js";
@@ -56,12 +76,23 @@ const WEB_ANIMATIONS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${WEB
 const POINTER_EVENTS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${POINTER_EVENTS_POLYFILL_DIRECTORY_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIST_PATH = `${WEB_ANIMATIONS_POLYFILL_DIRECTORY_DIST_PATH}/${WEB_ANIMATIONS_POLYFILL_NAME}`;
 const POINTER_EVENTS_POLYFILL_DIST_PATH = `${POINTER_EVENTS_POLYFILL_DIRECTORY_DIST_PATH}/${POINTER_EVENTS_POLYFILL_NAME}`;
+const LIB_DIST_PATH = `${DIST_DIRECTORY}/${LIB_NAME}`;
+const TRACKER_LIB_DIRECTORY_DIST_PATH = `${LIB_DIST_PATH}/${TRACKER_LIB_DIRECTORY_NAME}`;
+const TRACKER_LIB_DIST_PATH = `${TRACKER_LIB_DIRECTORY_DIST_PATH}/${TRACKER_LIB_NAME}`;
+
+const TRACKER_LIB_MODEL_DIST_PATH = `${TRACKER_LIB_DIRECTORY_DIST_PATH}/${TRACKER_LIB_MODEL_NAME}`;
+const TRACKER_LIB_MODEL1_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL1_NAME}`;
+const TRACKER_LIB_MODEL2_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL2_NAME}`;
+const TRACKER_LIB_MODEL3_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL3_NAME}`;
+const TRACKER_LIB_MODEL4_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL4_NAME}`;
+const TRACKER_LIB_MODEL5_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL5_NAME}`;
+const TRACKER_LIB_MODEL6_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL6_NAME}`;
 
 const relativePath = (path: string, steps?: number) => {
 	if (steps == null || steps == 0) return path;
 	if (steps < 0) return `${"../".repeat(Math.abs(steps))}${path}`;
 	const normalizedPath = path.startsWith("/") ? path.slice(1) : path.startsWith("./") ? path.slice(2) : path;
-	return normalizedPath.split("/").slice(steps).join("");
+	return normalizedPath.split("/").slice(steps).join("/");
 };
 
 const STATIC_ASSETS: IStaticAsset[] = [
@@ -95,6 +126,62 @@ const STATIC_ASSETS: IStaticAsset[] = [
 		},
 		to (steps?: number) {
 			return relativePath(POINTER_EVENTS_POLYFILL_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL1_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL1_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL2_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL2_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL3_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL3_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL4_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL4_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL5_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL5_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL6_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(TRACKER_LIB_MODEL6_DIST_PATH, steps);
 		}
 	}
 ];
@@ -135,6 +222,42 @@ export const Resource: IResource = {
 					},
 					pointerEvents (steps?: number) {
 						return relativePath(POINTER_EVENTS_POLYFILL_DIST_PATH, steps);
+					}
+				},
+				lib: {
+					directory (steps?: number) {
+						return relativePath(LIB_DIST_PATH, steps);
+					},
+					tracker: {
+						directory (steps?: number) {
+							return relativePath(TRACKER_LIB_DIRECTORY_DIST_PATH, steps);
+						},
+						tracker (steps?: number) {
+							return relativePath(TRACKER_LIB_DIST_PATH, steps);
+						},
+						model: {
+							directory (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL_DIST_PATH, steps);
+							},
+							model1 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL1_DIST_PATH, steps);
+							},
+							model2 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL2_DIST_PATH, steps);
+							},
+							model3 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL3_DIST_PATH, steps);
+							},
+							model4 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL4_DIST_PATH, steps);
+							},
+							model5 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL5_DIST_PATH, steps);
+							},
+							model6 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL6_DIST_PATH, steps);
+							}
+						}
 					}
 				},
 				bundle (steps?: number) {
@@ -201,6 +324,42 @@ export const Resource: IResource = {
 					pointerEvents (steps?: number) {
 						return relativePath(POINTER_EVENTS_POLYFILL_SRC_PATH, steps);
 					}
+				},
+				lib: {
+					directory (steps?: number) {
+						return relativePath(LIB_SRC_PATH, steps);
+					},
+					tracker: {
+						directory (steps?: number) {
+							return relativePath(TRACKER_LIB_DIRECTORY_SRC_PATH, steps);
+						},
+						tracker (steps?: number) {
+							return relativePath(TRACKER_LIB_SRC_PATH, steps);
+						},
+						model: {
+							directory (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL_SRC_PATH, steps);
+							},
+							model1 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL1_SRC_PATH, steps);
+							},
+							model2 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL2_SRC_PATH, steps);
+							},
+							model3 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL3_SRC_PATH, steps);
+							},
+							model4 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL4_SRC_PATH, steps);
+							},
+							model5 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL5_SRC_PATH, steps);
+							},
+							model6 (steps?: number) {
+								return relativePath(TRACKER_LIB_MODEL6_SRC_PATH, steps);
+							}
+						}
+					},
 				},
 				entry (steps?: number) {
 					return relativePath(ENTRY_PATH, steps);

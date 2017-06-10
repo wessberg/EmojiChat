@@ -1,11 +1,22 @@
 import {IComponent, IComponentConstructor} from "./IComponent";
 import {Resource} from "../../../Resource/Resource";
+import {IPropChangeRecord, IPropObserverConsumer} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
 
+/**
+ * This is a semantic decorator for making sure that all used elements are in fact imported.
+ * @param _
+ * @returns {(_: IComponentConstructor)}
+ */
 export function uses (_: (new () => IComponent)[]) {
 	return (_: IComponentConstructor) => {
 	};
 }
 
+/**
+ * Registers the given prototype and selector as a custom element.
+ * @param selector
+ * @returns {(prototype: IComponentConstructor)=>undefined}
+ */
 export function selector (selector: string) {
 	return (prototype: IComponentConstructor) => {
 		customElements.define(selector, prototype);
@@ -25,6 +36,31 @@ export function selector (selector: string) {
 	`;
 		prototype.template = template;
 	};
+}
+
+/**
+ * A helper decorator for attaching getters and setters for properties.
+ * @param model
+ * @param prop
+ */
+export function prop (model: IPropObserverConsumer, prop: string): void {
+
+	Object.defineProperty(model, prop, {
+		get: function () {
+			return (<IPropObserverConsumer>this)[<keyof IPropObserverConsumer>`_${prop}`];
+		},
+		set: async function (value: IPropObserverConsumer[keyof IPropObserverConsumer]) {
+			const self = <IPropObserverConsumer>this;
+			const current = self[<keyof IPropObserverConsumer>`_${prop}`];
+			if (value !== current) {
+				const normalizedValue = self.onBeforePropChanged != null ? self.onBeforePropChanged({prop, newValue: value}) : value;
+				(<any>self)[`_${prop}`] = normalizedValue;
+				await self.onPropChanged({prop, newValue: normalizedValue, oldValue: current});
+			}
+		},
+		enumerable: true,
+		configurable: false
+	});
 }
 
 @selector("component-element")
@@ -49,6 +85,10 @@ export class Component extends HTMLElement implements IComponent {
 
 	public static markup (): string|null {
 		return null;
+	}
+
+	public async onPropChanged ({}: IPropChangeRecord): Promise<void> {
+
 	}
 
 	injectTemplate () {
@@ -76,6 +116,26 @@ export class Component extends HTMLElement implements IComponent {
 	}
 
 	protected disconnectedCallback () {
+	}
+
+	public addAttribute (name: string, value?: string): void {
+		if (!this.hasAttribute(name)) this.setAttribute(name, value === undefined ? "" : value);
+	}
+
+	public removeAttribute (name: string): void {
+		if (this.hasAttribute(name)) super.removeAttribute(name);
+	}
+
+	public toggleAttribute (name: string, condition?: boolean): void {
+		if (condition === undefined) {
+			// Simply remove the attribute if it exists or add it if it doesn't.
+			if (this.hasAttribute(name)) super.removeAttribute(name);
+			else this.addAttribute(name);
+		} else {
+			// Add the attribute if the condition is truthy. Remove it otherwise.
+			if (condition) this.addAttribute(name);
+			else this.removeAttribute(name);
+		}
 	}
 
 	private getCachedElement (selector: string): HTMLElement|undefined {

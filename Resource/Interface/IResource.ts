@@ -4,6 +4,7 @@ export interface ICommonPath {
 	directory: DirectoryGetter;
 	polyfill: IPolyfillPath;
 	favicon: DirectoryGetter;
+	lib: ILibPath;
 }
 
 export interface IDistPath extends ICommonPath {
@@ -70,6 +71,27 @@ export interface IBrowserResource {
 export interface IAppResource {
 	meta: IAppMeta;
 	path: IAppPath;
+}
+
+export interface ITrackerModelPath {
+	directory: DirectoryGetter;
+	model1: DirectoryGetter;
+	model2: DirectoryGetter;
+	model3: DirectoryGetter;
+	model4: DirectoryGetter;
+	model5: DirectoryGetter;
+	model6: DirectoryGetter;
+}
+
+export interface ITrackerPath {
+	directory: DirectoryGetter;
+	tracker: DirectoryGetter;
+	model: ITrackerModelPath;
+}
+
+export interface ILibPath {
+	directory: DirectoryGetter;
+	tracker: ITrackerPath;
 }
 
 export interface IPolyfillPath {

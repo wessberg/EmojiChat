@@ -1,46 +1,21 @@
 import {MediaComponent} from "../MediaComponent/MediaComponent";
-import {selector} from "../Component/Component";
+import {prop, selector} from "../Component/Component";
 import {IVideoComponent} from "./Interface/IVideoComponent";
+import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
 
 @selector("video-element")
 export class VideoComponent extends MediaComponent implements IVideoComponent {
 	public role = "img";
 	public placeholderMedia = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSI5IiB2aWV3Qm94PSIwIDAgMTQgOSI+ICA8cGF0aCBmaWxsLW9wYWNpdHk9Ii4xMiIgZD0iTTEwLjcgMy40VjFjMC0uNS0uNC0xLS44LTFIMUMuNiAwIC4zLjUuMyAxdjdjMCAuNC4zLjcuNy43aDljLjMgMCAuNy0uNC43LS44di0zbDMgM1YwbC0zIDIuOHYuNnoiLz48L3N2Zz4=";
+	@prop srcObject: MediaStream|null = null;
+	@prop playing: boolean = false;
 
 	static get observedAttributes (): string[] {
 		return [...super.observedAttributes, "width", "height"];
 	}
 
-	private _srcObject: MediaStream|null = null;
-
-	public get srcObject () {
-		return this._srcObject;
-	}
-
-	public set srcObject (srcObject: MediaStream|null) {
-		this._srcObject = srcObject;
-
-		if (srcObject == null) this.unload().then();
-
-		else if (this.hasAttribute("autoload")) {
-			this.load().then();
-		}
-		else {
-			this.loaded = false;
-			this.loading = false;
-		}
-	}
-
-	private _playing: boolean = false;
-
-	protected get playing (): boolean {
-		return this._playing;
-	}
-
-	protected set playing (playing: boolean) {
-		this._playing = playing;
-		if (playing) this.setAttribute("playing", "");
-		else if (this.hasAttribute("playing")) this.removeAttribute("playing");
+	public get nativeVideoElement (): HTMLVideoElement {
+		return <HTMLVideoElement> this.element("video");
 	}
 
 	protected get hasMedia (): boolean {
@@ -121,6 +96,26 @@ export class VideoComponent extends MediaComponent implements IVideoComponent {
 		`;
 	}
 
+	async onPropChanged ({prop}: IPropChangeRecord): Promise<void> {
+		switch (prop) {
+
+			case "srcObject":
+				if (this.srcObject == null) this.unload().then();
+
+				else if (this.hasAttribute("autoload")) {
+					this.load().then();
+				}
+				else {
+					this.loaded = false;
+					this.loading = false;
+				}
+				break;
+
+			case "playing":
+				this.toggleAttribute("playing", this.playing);
+		}
+	}
+
 	public async play (): Promise<void> {
 		await this.load();
 		const video = <HTMLVideoElement>this.element("video");
@@ -180,13 +175,10 @@ export class VideoComponent extends MediaComponent implements IVideoComponent {
 
 			case "width":
 			case "height":
-				const placeholder = this.element("placeholderImage");
 				const video = this.element("video");
 				if (newValue == null) {
-					if (placeholder.hasAttribute(attrName)) placeholder.removeAttribute(attrName);
 					if (video.hasAttribute(attrName)) video.removeAttribute(attrName);
 				} else {
-					placeholder.setAttribute(attrName, newValue);
 					video.setAttribute(attrName, newValue);
 				}
 				break;

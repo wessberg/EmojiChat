@@ -23,14 +23,14 @@ export class Page extends ScrollComponent implements IPage {
 	public static styles (): string {
 		// language=CSS
 		return super.styles() + `
-			:host {
-				display: none;
-				contain: strict;
-				height: calc(100vh - var(--app-bar-portrait-height));
-				top: var(--app-bar-portrait-height);
-				margin-bottom: var(--app-bar-portrait-height);
-				position: absolute;
-			}
+        :host {
+            display: none;
+            contain: strict;
+            height: calc(100vh - var(--app-bar-portrait-height));
+            top: var(--app-bar-portrait-height);
+            margin-bottom: var(--app-bar-portrait-height);
+            position: absolute;
+        }
 		`;
 	}
 

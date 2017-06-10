@@ -29,6 +29,8 @@ declare interface Window {
 	requestIdleCallback(callback: () => void): void;
 }
 
+declare function requestIdleCallback(callback: () => void): void;
+
 declare interface Node {
 	getRootNode (): ShadowRoot;
 }
