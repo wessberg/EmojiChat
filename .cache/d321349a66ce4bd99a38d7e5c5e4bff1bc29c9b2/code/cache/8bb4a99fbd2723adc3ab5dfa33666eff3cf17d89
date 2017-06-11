@@ -1,0 +1,13 @@
+{
+  "code": "export var CameraFacingKind;\r\n(function (CameraFacingKind) {\r\n    CameraFacingKind[CameraFacingKind[\"FRONT\"] = \"user\"] = \"FRONT\";\r\n    CameraFacingKind[CameraFacingKind[\"REAR\"] = \"environment\"] = \"REAR\";\r\n})(CameraFacingKind || (CameraFacingKind = {}));\r\nexport var MediaStreamKind;\r\n(function (MediaStreamKind) {\r\n    MediaStreamKind[MediaStreamKind[\"AUDIO\"] = 0] = \"AUDIO\";\r\n    MediaStreamKind[MediaStreamKind[\"VIDEO\"] = 1] = \"VIDEO\";\r\n    MediaStreamKind[MediaStreamKind[\"AUDIO_AND_VIDEO\"] = 2] = \"AUDIO_AND_VIDEO\";\r\n})(MediaStreamKind || (MediaStreamKind = {}));\r\n//# sourceMappingURL=IMediaDeviceUtil.js.map",
+  "map": {
+    "version": 3,
+    "file": "IMediaDeviceUtil.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../../src/Service/MediaDeviceUtil/Interface/IMediaDeviceUtil.ts"
+    ],
+    "names": [],
+    "mappings": "AAAA,MAAM,CAAN,IAAY,gBAGX;AAHD,WAAY,gBAAgB;IAC3B,6CAAa,MAAM,WAAA,CAAA;IACnB,4CAAY,aAAa,UAAA,CAAA;AAC1B,CAAC,EAHW,gBAAgB,KAAhB,gBAAgB,QAG3B;AAED,MAAM,CAAN,IAAY,eAEX;AAFD,WAAY,eAAe;IAC1B,uDAAK,CAAA;IAAE,uDAAK,CAAA;IAAE,2EAAe,CAAA;AAC9B,CAAC,EAFW,eAAe,KAAf,eAAe,QAE1B"
+  }
+}

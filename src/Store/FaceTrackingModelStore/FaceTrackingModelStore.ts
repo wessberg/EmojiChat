@@ -17,6 +17,12 @@ export class FaceTrackingModelStore extends Store implements IFaceTrackingModelS
 	public clearTracker (): void {
 		if (FaceTrackingModelStore.TRACKER == null) return;
 		FaceTrackingModelStore.TRACKER.stop();
+
+		// Remove the renderCanvas.
+		const renderCanvas = document.getElementById("renderCanvas");
+		if (renderCanvas != null && renderCanvas.parentNode != null) {
+			renderCanvas.parentNode.removeChild(renderCanvas);
+		}
 	}
 
 	public async getTracker (): Promise<IFaceTrackingTracker> {

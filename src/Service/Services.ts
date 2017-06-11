@@ -25,8 +25,8 @@ import {EmotionModelStore} from "../Store/EmotionModelStore/EmotionModelStore";
 import {IEmotionClassifierUtil} from "./EmotionClassifierUtil/Interface/IEmotionClassifierUtil";
 import {EmotionClassifierUtil} from "./EmotionClassifierUtil/EmotionClassifierUtil";
 import {EmotionModel} from "../Model/EmotionModel/EmotionModel";
-import {IFaceDeformerUtil} from "./FaceDeformerUtil/Interface/IFaceDeformerUtil";
-import {FaceDeformerUtil} from "./FaceDeformerUtil/FaceDeformerUtil";
+import {IImageSnapUtil} from "./ImageSnapUtil/Interface/IImageSnapUtil";
+import {ImageSnapUtil} from "./ImageSnapUtil/ImageSnapUtil";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -41,4 +41,4 @@ export const mediaStreamStore: IMediaStreamStore = new MediaStreamStore();
 export const emotionModelStore: IEmotionModelStore = new EmotionModelStore(EmotionModel);
 export const faceTrackingModelStore: IFaceTrackingModelStore = new FaceTrackingModelStore();
 export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifierUtil(emotionModelStore.getModel());
-export const faceDeformerUtil: IFaceDeformerUtil = new FaceDeformerUtil()
+export const imageSnapUtil: IImageSnapUtil = new ImageSnapUtil();

@@ -1,7 +1,7 @@
 import {IPage} from "./Interface/IPage";
 import {ScrollComponent} from "../../Component/ScrollComponent/ScrollComponent";
 import {selector} from "../../Component/Component/Component";
-import {Resource} from "../../../Resource/Resource";
+import {BrowserResource} from "../../../Resource/BrowserResource";
 
 @selector("page-element")
 export class Page extends ScrollComponent implements IPage {
@@ -16,7 +16,7 @@ export class Page extends ScrollComponent implements IPage {
 	}
 
 	public static testRoute (path: string): boolean {
-		if (`${this.routeName }` === `${new RegExp(Resource.browser.path.root())}`) return path === "/" || path === "" || path === Resource.browser.path.root() || path === Resource.browser.path.root().slice(0, Resource.browser.path.root().length - 1);
+		if (`${this.routeName }` === `${new RegExp(BrowserResource.path.root)}`) return path === "/" || path === "" || path === BrowserResource.path.root || path === BrowserResource.path.root.slice(0, BrowserResource.path.root.length - 1);
 		return this.routeName.test(path);
 	}
 
@@ -35,11 +35,15 @@ export class Page extends ScrollComponent implements IPage {
 	}
 
 	public async didBecomeVisible (): Promise<void> {
-		this.setAttribute("visible", "");
+		this.addAttribute("visible");
 	}
 
 	public async didBecomeInvisible (): Promise<void> {
-		if (this.hasAttribute("visible")) this.removeAttribute("visible");
+		this.removeAttribute("visible");
+	}
+
+	public get visible (): boolean {
+		return this.hasAttribute("visible");
 	}
 
 	public async animateIn (): Promise<void> {

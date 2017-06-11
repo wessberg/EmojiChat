@@ -1,4 +1,6 @@
+import {INavigationData} from "../../../Service/NavigationUtil/Interface/INavigationUtil";
+
 export interface IPathChangeSubscriber {
-	didBecomeVisible (): Promise<void>;
+	didBecomeVisible (data?: INavigationData): Promise<void>;
 	didBecomeInvisible (): Promise<void>;
 }

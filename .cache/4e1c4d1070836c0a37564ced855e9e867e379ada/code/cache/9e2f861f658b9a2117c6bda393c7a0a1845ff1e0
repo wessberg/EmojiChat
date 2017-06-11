@@ -1,0 +1,13 @@
+{
+  "code": "import { Store } from \"../Store/Store\";\r\nimport { MediaPermissionKind } from \"../../Model/MediaPermission/Interface/IMediaPermission\";\r\nexport class MediaStreamStore extends Store {\r\n    constructor() {\r\n        super(...arguments);\r\n        this.stream = null;\r\n        this.cameraPermission = null;\r\n        this.microphonePermission = null;\r\n    }\r\n    getStream() {\r\n        return this.stream;\r\n    }\r\n    setStream(stream) {\r\n        this.stream = stream;\r\n    }\r\n    getCameraFacing() {\r\n        return this.cameraFacing;\r\n    }\r\n    setCameraFacing(facing) {\r\n        this.cameraFacing = facing;\r\n    }\r\n    setCameraPermission(permission) {\r\n        this.cameraPermission = permission;\r\n    }\r\n    setMicrophonePermission(permission) {\r\n        this.microphonePermission = permission;\r\n    }\r\n    hasCameraPermission() {\r\n        return this.cameraPermission === MediaPermissionKind.GRANTED;\r\n    }\r\n    hasVideoPermission() {\r\n        return this.microphonePermission === MediaPermissionKind.GRANTED;\r\n    }\r\n}\r\n//# sourceMappingURL=MediaStreamStore.js.map",
+  "map": {
+    "version": 3,
+    "file": "MediaStreamStore.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../src/Store/MediaStreamStore/MediaStreamStore.ts"
+    ],
+    "names": [],
+    "mappings": "AAAA,OAAO,EAAC,KAAK,EAAC,MAAM,gBAAgB,CAAC;AAErC,OAAO,EAAC,mBAAmB,EAAC,MAAM,wDAAwD,CAAC;AAG3F,MAAM,uBAAwB,SAAQ,KAAK;IAA3C;;QACS,WAAM,GAAsB,IAAI,CAAC;QACjC,qBAAgB,GAA6B,IAAI,CAAC;QAClD,yBAAoB,GAA6B,IAAI,CAAC;IAkC/D,CAAC;IA/BO,SAAS;QACf,MAAM,CAAC,IAAI,CAAC,MAAM,CAAC;IACpB,CAAC;IAEM,SAAS,CAAE,MAAyB;QAC1C,IAAI,CAAC,MAAM,GAAG,MAAM,CAAC;IACtB,CAAC;IAEM,eAAe;QACrB,MAAM,CAAC,IAAI,CAAC,YAAY,CAAC;IAC1B,CAAC;IAEM,eAAe,CAAE,MAA6B;QACpD,IAAI,CAAC,YAAY,GAAG,MAAM,CAAC;IAC5B,CAAC;IAEM,mBAAmB,CAAE,UAA+B;QAC1D,IAAI,CAAC,gBAAgB,GAAG,UAAU,CAAC;IACpC,CAAC;IAEM,uBAAuB,CAAE,UAA+B;QAC9D,IAAI,CAAC,oBAAoB,GAAG,UAAU,CAAC;IACxC,CAAC;IAEM,mBAAmB;QACzB,MAAM,CAAC,IAAI,CAAC,gBAAgB,KAAK,mBAAmB,CAAC,OAAO,CAAC;IAC9D,CAAC;IAEM,kBAAkB;QACxB,MAAM,CAAC,IAAI,CAAC,oBAAoB,KAAK,mBAAmB,CAAC,OAAO,CAAC;IAClE,CAAC;CACD"
+  }
+}

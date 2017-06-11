@@ -135,6 +135,18 @@ export class RectangleItemComponent extends Component implements IRectangleItemC
             fill: var(--color-icon-light) !important;
         }
 
+        :host(:not([no-background])[green]) {
+            background: var(--color-green-100);
+        }
+
+        :host([green]) ::slotted(*) {
+            color: var(--color-primary-text-light) !important;
+        }
+
+        :host([green]) ::slotted(icon-element) {
+            fill: var(--color-icon-light) !important;
+        }
+
         :host([shadow]) {
             box-shadow: var(--shadow-level1);
         }

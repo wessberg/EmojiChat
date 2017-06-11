@@ -1,7 +1,7 @@
 import {Component, selector} from "../Component/Component";
 import {IAnchorComponent} from "./Interface/IAnchorComponent";
 import {navigationUtil} from "../../Service/Services";
-import {Resource} from "../../../Resource/Resource";
+import {BrowserResource} from "../../../Resource/BrowserResource";
 
 @selector("anchor-element")
 export class AnchorComponent extends Component implements IAnchorComponent {
@@ -75,7 +75,7 @@ export class AnchorComponent extends Component implements IAnchorComponent {
 
 	private normalizeHref (href: string): string {
 		const sliced = href.startsWith("/") ? href.slice(1) : href;
-		return `${Resource.browser.path.root}${sliced}`;
+		return `${BrowserResource.path.root}${sliced}`;
 	}
 
 	private listenForClicks (): void {

@@ -1,0 +1,13 @@
+{
+  "code": "export var MediaPermissionKind;\r\n(function (MediaPermissionKind) {\r\n    MediaPermissionKind[MediaPermissionKind[\"GRANTED\"] = 0] = \"GRANTED\";\r\n    MediaPermissionKind[MediaPermissionKind[\"DENIED\"] = 1] = \"DENIED\";\r\n})(MediaPermissionKind || (MediaPermissionKind = {}));\r\n//# sourceMappingURL=IMediaPermission.js.map",
+  "map": {
+    "version": 3,
+    "file": "IMediaPermission.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../../src/Model/MediaPermission/Interface/IMediaPermission.ts"
+    ],
+    "names": [],
+    "mappings": "AAAA,MAAM,CAAN,IAAY,mBAEX;AAFD,WAAY,mBAAmB;IAC9B,mEAAO,CAAA;IAAE,iEAAM,CAAA;AAChB,CAAC,EAFW,mBAAmB,KAAnB,mBAAmB,QAE9B"
+  }
+}

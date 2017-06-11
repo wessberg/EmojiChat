@@ -57,6 +57,14 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
             color: var(--color-white-70);
         }
 
+        :host(:not([no-background])[green]:hover) {
+            background: var(--color-green-100);
+        }
+
+        :host([green]) .ripple {
+            color: var(--color-white-70);
+        }
+
         :host([shadow]:hover) {
             box-shadow: var(--shadow-level3);
         }

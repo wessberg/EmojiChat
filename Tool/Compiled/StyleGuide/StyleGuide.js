@@ -8,7 +8,8 @@ export const StyleGuide = {
         redRGB: "221, 44, 0;",
         blueRGB: "3, 169, 243",
         backgroundRGB: "67, 65, 65",
-        orangeRGB: "248, 202, 35"
+        orangeRGB: "248, 202, 35",
+        greenRGB: "86, 207, 119"
     }
 };
 //# sourceMappingURL=StyleGuide.js.map

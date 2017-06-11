@@ -65,6 +65,13 @@ const PRODUCTION_PLUGINS: IRollupPlugin[] = Config.PRODUCTION ? [
 				fromRoot(Resource.app.path.dist.lib.tracker.model.model4()),
 				fromRoot(Resource.app.path.dist.lib.tracker.model.model5()),
 				fromRoot(Resource.app.path.dist.lib.tracker.model.model6()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.angry()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.disgusted()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.fear()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.happy()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.neutral()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.sad()),
+				fromRoot(Resource.app.path.dist.asset.image.emoji.surprised()),
 				fromRoot(Resource.app.path.dist.sharedCss())
 			]
 		})
@@ -84,7 +91,8 @@ const BASE_PLUGINS: IRollupPlugin[] = [
 			tsconfig: fromRoot("tsconfig.json"),
 			include: [fromRoot("*.ts+(|x)"), fromRoot("**/*.ts+(|x)")],
 			exclude: [fromRoot("*.d.ts"), fromRoot("**/*.d.ts")],
-			cacheRoot: "./.rts2_cache"
+			cacheRoot: "./.cache",
+			cache: false
 		})
 	},
 	{

@@ -1,0 +1,13 @@
+{
+  "code": "export class Store {\r\n}\r\n//# sourceMappingURL=Store.js.map",
+  "map": {
+    "version": 3,
+    "file": "Store.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../src/Store/Store/Store.ts"
+    ],
+    "names": [],
+    "mappings": "AAEA,MAAM;CAEL"
+  }
+}

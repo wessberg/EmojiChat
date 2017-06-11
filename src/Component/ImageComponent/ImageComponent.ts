@@ -101,6 +101,7 @@ export class ImageComponent extends MediaComponent implements IImageComponent {
 
 	protected async setInitialState (): Promise<void> {
 		this.element("mainImage").removeAttribute("src");
+		this.loaded = false;
 	}
 
 	protected async attributeChangedCallback (attrName: string, _: string, newValue: string): Promise<void> {

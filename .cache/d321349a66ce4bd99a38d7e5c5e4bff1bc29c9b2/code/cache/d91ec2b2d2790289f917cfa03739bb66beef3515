@@ -1,0 +1,13 @@
+{
+  "code": "export var NativePlatformKind;\r\n(function (NativePlatformKind) {\r\n    NativePlatformKind[NativePlatformKind[\"ANDROID\"] = 0] = \"ANDROID\";\r\n    NativePlatformKind[NativePlatformKind[\"IOS\"] = 1] = \"IOS\";\r\n})(NativePlatformKind || (NativePlatformKind = {}));\r\n//# sourceMappingURL=NativePlatformKind.js.map",
+  "map": {
+    "version": 3,
+    "file": "NativePlatformKind.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../../src/Service/AgentDetector/Interface/NativePlatformKind.ts"
+    ],
+    "names": [],
+    "mappings": "AAAA,MAAM,CAAN,IAAY,kBAGX;AAHD,WAAY,kBAAkB;IAC7B,iEAAO,CAAA;IACP,yDAAG,CAAA;AACJ,CAAC,EAHW,kBAAkB,KAAlB,kBAAkB,QAG7B"
+  }
+}

@@ -2,6 +2,7 @@ export interface IColorStyleGuide {
 	blackRGB: string;
 	darkRGB: string;
 	whiteRGB: string;
+	greenRGB: string;
 	redRGB: string;
 	blueRGB: string;
 	primaryRGB: string;

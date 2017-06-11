@@ -1,37 +1,30 @@
-import {Component, selector} from "../Component/Component";
+import {Component, prop, selector} from "../Component/Component";
 import {IMediaComponent} from "./Interface/IMediaComponent";
+import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
 
 @selector("media-element")
 export class MediaComponent extends Component implements IMediaComponent {
 	public role = "presentation";
 	protected placeholderMedia: string;
+	@prop protected loading: boolean = false;
+	@prop protected loaded: boolean = false;
+	@prop src: string;
 
 	static get observedAttributes (): string[] {
 		return ["loading", "loaded", "src", "cover", "contained"];
 	}
 
-	private _loading: boolean = false;
+	async onPropChanged ({prop}: IPropChangeRecord): Promise<void> {
+		switch (prop) {
 
-	protected get loading (): boolean {
-		return this._loading;
-	}
+			case "loading":
+				this.toggleAttribute("loading", this.loading);
+				break;
 
-	protected set loading (loading: boolean) {
-		this._loading = loading;
-		if (loading) this.setAttribute("loading", "");
-		else if (this.hasAttribute("loading")) this.removeAttribute("loading");
-	}
-
-	public _loaded: boolean = false;
-
-	protected get loaded (): boolean {
-		return this._loaded;
-	}
-
-	protected set loaded (loaded: boolean) {
-		this._loaded = loaded;
-		if (loaded) this.setAttribute("loaded", "");
-		else if (this.hasAttribute("loaded")) this.removeAttribute("loaded");
+			case "loaded":
+				this.toggleAttribute("loaded", this.loaded);
+				break;
+		}
 	}
 
 	protected get hasMedia (): boolean {
@@ -54,8 +47,7 @@ export class MediaComponent extends Component implements IMediaComponent {
 	public async load (): Promise<void> {
 		if (!this.hasMedia) throw new ReferenceError(`'load()' could not find any media to load!`);
 
-		if (this.loaded) throw new TypeError(`'load()' was called, but the media is already loaded!`);
-		if (this.loading) return;
+		if (this.loaded || this.loading) return;
 
 		// Dispatch an action to inform the outside world that this is happening.
 		this.onLoadMediaAction();
@@ -75,11 +67,10 @@ export class MediaComponent extends Component implements IMediaComponent {
 
 			case "src":
 				if (newValue == null) return await this.unload();
-				else if (this.hasAttribute("autoload")) {
-					await this.load();
-				} else {
+				else {
 					this.loaded = false;
 					this.loading = false;
+					if (this.hasAttribute("autoload")) await this.load();
 				}
 				break;
 

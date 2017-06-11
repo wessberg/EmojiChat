@@ -1,0 +1,13 @@
+{
+  "code": "import { Store } from \"../Store/Store\";\r\nexport class EmotionModelStore extends Store {\r\n    constructor(model) {\r\n        super();\r\n        this.model = null;\r\n        if (model !== undefined)\r\n            this.setModel(model);\r\n    }\r\n    getModel() {\r\n        return this.model;\r\n    }\r\n    setModel(model) {\r\n        this.model = model;\r\n    }\r\n    getAttributesForModel(model) {\r\n        if (this.model == null || this.model[model] == null) {\r\n            throw new ReferenceError(`${this.constructor.name} could not find any emotion with that name in the model!`);\r\n        }\r\n        return this.model[model];\r\n    }\r\n}\r\n//# sourceMappingURL=EmotionModelStore.js.map",
+  "map": {
+    "version": 3,
+    "file": "EmotionModelStore.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../../src/Store/EmotionModelStore/EmotionModelStore.ts"
+    ],
+    "names": [],
+    "mappings": "AAAA,OAAO,EAAC,KAAK,EAAC,MAAM,gBAAgB,CAAC;AAIrC,MAAM,wBAAyB,SAAQ,KAAK;IAG3C,YAAa,KAA0B;QACtC,KAAK,EAAE,CAAC;QAHD,UAAK,GAAuB,IAAI,CAAC;QAIxC,EAAE,CAAC,CAAC,KAAK,KAAK,SAAS,CAAC;YAAC,IAAI,CAAC,QAAQ,CAAC,KAAK,CAAC,CAAC;IAC/C,CAAC;IAEM,QAAQ;QACd,MAAM,CAAC,IAAI,CAAC,KAAK,CAAC;IACnB,CAAC;IAEM,QAAQ,CAAE,KAAyB;QACzC,IAAI,CAAC,KAAK,GAAG,KAAK,CAAC;IACpB,CAAC;IAEM,qBAAqB,CAAE,KAAa;QAC1C,EAAE,CAAC,CAAC,IAAI,CAAC,KAAK,IAAI,IAAI,IAAI,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,IAAI,IAAI,CAAC,CAAC,CAAC;YACrD,MAAM,IAAI,cAAc,CAAC,GAAG,IAAI,CAAC,WAAW,CAAC,IAAI,0DAA0D,CAAC,CAAC;QAC9G,CAAC;QAED,MAAM,CAAC,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC;IAC1B,CAAC;CACD"
+  }
+}

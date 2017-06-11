@@ -13,6 +13,14 @@ const ASSET_NAME = "Asset";
 const ASSET_SRC_PATH = `${SRC_DIRECTORY}/${ASSET_NAME}`;
 const IMAGE_NAME = "Image";
 const ICON_NAME = "Image";
+const IMAGE_EMOJI_NAME = "Emoji";
+const IMAGE_EMOJI_ANGRY_NAME = "angry_emoji.svg";
+const IMAGE_EMOJI_DISGUSTED_NAME = "disgusted_emoji.svg";
+const IMAGE_EMOJI_FEAR_NAME = "fear_emoji.svg";
+const IMAGE_EMOJI_HAPPY_NAME = "happy_emoji.svg";
+const IMAGE_EMOJI_NEUTRAL_NAME = "neutral_emoji.svg";
+const IMAGE_EMOJI_SAD_NAME = "sad_emoji.svg";
+const IMAGE_EMOJI_SURPRISED_NAME = "surprised_emoji.svg";
 const POLYFILL_NAME = "Polyfill";
 const LIB_NAME = "Lib";
 const TRACKER_LIB_MODEL_NAME = "Model";
@@ -52,6 +60,14 @@ const IOS_ICONS_NAME = "iOSIcons.ts";
 const MATERIAL_ICONS_NAME = "MaterialIcons.ts";
 const IMAGE_SRC_PATH = `${ASSET_SRC_PATH}/${IMAGE_NAME}`;
 const ICON_SRC_PATH = `${ASSET_SRC_PATH}/${ICON_NAME}`;
+const IMAGE_EMOJI_DIRECTORY_SRC_PATH = `${IMAGE_SRC_PATH}/${IMAGE_EMOJI_NAME}`;
+const IMAGE_EMOJI_ANGRY_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_ANGRY_NAME}`;
+const IMAGE_EMOJI_DISGUSTED_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_DISGUSTED_NAME}`;
+const IMAGE_EMOJI_FEAR_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_FEAR_NAME}`;
+const IMAGE_EMOJI_HAPPY_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_HAPPY_NAME}`;
+const IMAGE_EMOJI_NEUTRAL_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_NEUTRAL_NAME}`;
+const IMAGE_EMOJI_SAD_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_SAD_NAME}`;
+const IMAGE_EMOJI_SURPRISED_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_SURPRISED_NAME}`;
 const PRODUCT_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${PRODUCT_ICONS_DIRECTORY_NAME}`;
 const EMOJI_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${EMOJI_ICONS_DIRECTORY_NAME}`;
 const STANDARD_ICONS_DIRECTORY = `${ICON_SRC_PATH}/${STANDARD_ICONS_DIRECTORY_NAME}`;
@@ -75,6 +91,14 @@ const SHARED_CSS_DIST_PATH = `${DIST_DIRECTORY}/${SHARED_CSS_NAME}`;
 const BUNDLE_DIST_PATH = `${DIST_DIRECTORY}/${BUNDLE_NAME}`;
 const ASSET_DIST_PATH = `${DIST_DIRECTORY}/${ASSET_NAME}`;
 const IMAGE_DIST_PATH = `${ASSET_DIST_PATH}/${IMAGE_NAME}`;
+const IMAGE_EMOJI_DIRECTORY_DIST_PATH = `${IMAGE_DIST_PATH}/${IMAGE_EMOJI_NAME}`;
+const IMAGE_EMOJI_ANGRY_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_ANGRY_NAME}`;
+const IMAGE_EMOJI_DISGUSTED_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_DISGUSTED_NAME}`;
+const IMAGE_EMOJI_FEAR_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_FEAR_NAME}`;
+const IMAGE_EMOJI_HAPPY_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_HAPPY_NAME}`;
+const IMAGE_EMOJI_NEUTRAL_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_NEUTRAL_NAME}`;
+const IMAGE_EMOJI_SAD_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_SAD_NAME}`;
+const IMAGE_EMOJI_SURPRISED_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_SURPRISED_NAME}`;
 const POLYFILL_DIST_PATH = `${DIST_DIRECTORY}/${POLYFILL_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${WEB_ANIMATIONS_POLYFILL_DIRECTORY_NAME}`;
 const POINTER_EVENTS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${POINTER_EVENTS_POLYFILL_DIRECTORY_NAME}`;
@@ -83,7 +107,6 @@ const POINTER_EVENTS_POLYFILL_DIST_PATH = `${POINTER_EVENTS_POLYFILL_DIRECTORY_D
 const LIB_DIST_PATH = `${DIST_DIRECTORY}/${LIB_NAME}`;
 const TRACKER_LIB_DIRECTORY_DIST_PATH = `${LIB_DIST_PATH}/${TRACKER_LIB_DIRECTORY_NAME}`;
 const TRACKER_LIB_DIST_PATH = `${TRACKER_LIB_DIRECTORY_DIST_PATH}/${TRACKER_LIB_NAME}`;
-
 const TRACKER_LIB_MODEL_DIST_PATH = `${TRACKER_LIB_DIRECTORY_DIST_PATH}/${TRACKER_LIB_MODEL_NAME}`;
 const TRACKER_LIB_MODEL1_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL1_NAME}`;
 const TRACKER_LIB_MODEL2_DIST_PATH = `${TRACKER_LIB_MODEL_DIST_PATH}/${TRACKER_LIB_MODEL2_NAME}`;
@@ -187,6 +210,62 @@ const STATIC_ASSETS: IStaticAsset[] = [
 		to (steps?: number) {
 			return relativePath(TRACKER_LIB_MODEL6_DIST_PATH, steps);
 		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_ANGRY_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_ANGRY_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_DISGUSTED_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_DISGUSTED_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_FEAR_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_FEAR_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_HAPPY_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_HAPPY_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_NEUTRAL_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_NEUTRAL_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_SAD_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_SAD_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_EMOJI_SURPRISED_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_EMOJI_SURPRISED_DIST_PATH, steps);
+		}
 	}
 ];
 
@@ -198,7 +277,7 @@ export const Resource: IResource = {
 			display: "standalone",
 			orientation: "portrait-primary",
 			direction: "ltr",
-			language: "dk",
+			language: "en",
 			description: "",
 			startUrl: "."
 		},
@@ -214,6 +293,32 @@ export const Resource: IResource = {
 					image: {
 						directory (steps?: number) {
 							return relativePath(IMAGE_DIST_PATH, steps);
+						},
+						emoji: {
+							directory (steps?: number) {
+								return relativePath(IMAGE_EMOJI_DIRECTORY_DIST_PATH, steps);
+							},
+							angry (steps?: number) {
+								return relativePath(IMAGE_EMOJI_ANGRY_DIST_PATH, steps);
+							},
+							disgusted (steps?: number) {
+								return relativePath(IMAGE_EMOJI_DISGUSTED_DIST_PATH, steps);
+							},
+							fear (steps?: number) {
+								return relativePath(IMAGE_EMOJI_FEAR_DIST_PATH, steps);
+							},
+							happy (steps?: number) {
+								return relativePath(IMAGE_EMOJI_HAPPY_DIST_PATH, steps);
+							},
+							neutral (steps?: number) {
+								return relativePath(IMAGE_EMOJI_NEUTRAL_DIST_PATH, steps);
+							},
+							sad (steps?: number) {
+								return relativePath(IMAGE_EMOJI_SAD_DIST_PATH, steps);
+							},
+							surprised (steps?: number) {
+								return relativePath(IMAGE_EMOJI_SURPRISED_DIST_PATH, steps);
+							}
 						}
 					}
 				},
@@ -291,6 +396,32 @@ export const Resource: IResource = {
 					image: {
 						directory (steps?: number) {
 							return relativePath(IMAGE_SRC_PATH, steps);
+						},
+						emoji: {
+							directory (steps?: number) {
+								return relativePath(IMAGE_EMOJI_DIRECTORY_SRC_PATH, steps);
+							},
+							angry (steps?: number) {
+								return relativePath(IMAGE_EMOJI_ANGRY_SRC_PATH, steps);
+							},
+							disgusted (steps?: number) {
+								return relativePath(IMAGE_EMOJI_DISGUSTED_SRC_PATH, steps);
+							},
+							fear (steps?: number) {
+								return relativePath(IMAGE_EMOJI_FEAR_SRC_PATH, steps);
+							},
+							happy (steps?: number) {
+								return relativePath(IMAGE_EMOJI_HAPPY_SRC_PATH, steps);
+							},
+							neutral (steps?: number) {
+								return relativePath(IMAGE_EMOJI_NEUTRAL_SRC_PATH, steps);
+							},
+							sad (steps?: number) {
+								return relativePath(IMAGE_EMOJI_SAD_SRC_PATH, steps);
+							},
+							surprised (steps?: number) {
+								return relativePath(IMAGE_EMOJI_SURPRISED_SRC_PATH, steps);
+							}
 						}
 					},
 					icon: {
@@ -396,11 +527,6 @@ export const Resource: IResource = {
 		sourceMap: !Config.PRODUCTION,
 		treeshake: true,
 		staticAssets: STATIC_ASSETS
-	},
-	browser: {
-		path: {
-			root: () => location.pathname
-		}
 	}
 };
 

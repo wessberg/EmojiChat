@@ -15,8 +15,20 @@ export interface IDistPath extends ICommonPath {
 	manifest: DirectoryGetter;
 }
 
+export interface IEmojiPath {
+	directory: DirectoryGetter;
+	angry: DirectoryGetter;
+	disgusted: DirectoryGetter;
+	fear: DirectoryGetter;
+	happy: DirectoryGetter;
+	neutral: DirectoryGetter;
+	sad: DirectoryGetter;
+	surprised: DirectoryGetter;
+}
+
 export interface IImagePath {
 	directory: DirectoryGetter;
+	emoji: IEmojiPath;
 }
 
 export interface IIconPath {
@@ -64,14 +76,6 @@ export interface ISrcPath extends ICommonPath {
 export interface IAppPath {
 	src: ISrcPath;
 	dist: IDistPath;
-}
-
-export interface IBrowserPath {
-	root: () => string;
-}
-
-export interface IBrowserResource {
-	path: IBrowserPath;
 }
 
 export interface IAppResource {
@@ -130,7 +134,6 @@ export interface IAppMeta {
 }
 
 export interface IResource {
-	browser: IBrowserResource;
 	app: IAppResource;
 	build: IBuildResource;
 }

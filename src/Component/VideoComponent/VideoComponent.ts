@@ -96,7 +96,9 @@ export class VideoComponent extends MediaComponent implements IVideoComponent {
 		`;
 	}
 
-	async onPropChanged ({prop}: IPropChangeRecord): Promise<void> {
+	async onPropChanged ({prop, newValue, oldValue}: IPropChangeRecord): Promise<void> {
+		await super.onPropChanged({prop, newValue, oldValue});
+
 		switch (prop) {
 
 			case "srcObject":

@@ -1,4 +1,4 @@
-import {INavigationUtil, IRoute} from "./Interface/INavigationUtil";
+import {INavigationData, INavigationUtil, IRoute} from "./Interface/INavigationUtil";
 import {GlobalObject} from "@wessberg/globalobject";
 import {eventUtil} from "../Services";
 import {IFrame} from "../../Frame/Frame/Interface/IFrame";
@@ -20,17 +20,21 @@ export class NavigationUtil implements INavigationUtil {
 		this.navigate(location.pathname).then();
 	}
 
-	public async onNavigateTo (route: IRoute): Promise<void> {
-		await this.attachRoute(route);
+	public async onNavigateTo (route: IRoute, data?: INavigationData): Promise<void> {
+		await this.attachRoute(route, data);
 	}
 
-	public async navigate (path: string): Promise<void> {
+	public async navigate (path: string, data?: INavigationData): Promise<void> {
 		if (Config.DEBUG) console.log("navigation intent:", path);
 		if (this.isCurrentRoute(path)) return;
 
 		const route = this.getRoute(path);
 		if (route == null) throw new ReferenceError(`${this.constructor.name} could not find a route for location: ${path}`);
-		await this.routeHistory.addState(route);
+		await this.routeHistory.addState(route, data);
+	}
+
+	public async back (): Promise<void> {
+		await this.routeHistory.back();
 	}
 
 	private isCurrentRoute (path: string): boolean {
@@ -61,7 +65,7 @@ export class NavigationUtil implements INavigationUtil {
 		this.frame = <IFrame>detail;
 	}
 
-	private async attachRoute (route: IRoute): Promise<void> {
+	private async attachRoute (route: IRoute, data?: INavigationData): Promise<void> {
 
 		await this.whenReady();
 		if (this.isCurrentRoute(route.path)) return;
@@ -69,7 +73,7 @@ export class NavigationUtil implements INavigationUtil {
 		const old = this.currentPageInstance;
 		this.currentPageInstance = instance;
 		await Promise.all([
-			instance.didBecomeVisible(),
+			instance.didBecomeVisible(data),
 			old != null ? old.didBecomeInvisible() : Promise.resolve()
 		]);
 	}

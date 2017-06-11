@@ -1,0 +1,13 @@
+{
+  "code": "export class GlobalEventBlocker {\r\n    block(eventName) {\r\n        window.addEventListener(eventName, e => {\r\n            e.preventDefault();\r\n            e.stopPropagation();\r\n        });\r\n    }\r\n}\r\n//# sourceMappingURL=GlobalEventBlocker.js.map",
+  "map": {
+    "version": 3,
+    "file": "GlobalEventBlocker.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../src/EventHandler/GlobalEventBlocker.ts"
+    ],
+    "names": [],
+    "mappings": "AAEA,MAAM;IACE,KAAK,CAAE,SAAiB;QAC9B,MAAM,CAAC,gBAAgB,CAAC,SAAS,EAAE,CAAC;YACnC,CAAC,CAAC,cAAc,EAAE,CAAC;YACnB,CAAC,CAAC,eAAe,EAAE,CAAC;QACrB,CAAC,CAAC,CAAC;IACJ,CAAC;CACD"
+  }
+}

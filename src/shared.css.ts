@@ -22,6 +22,8 @@ export const sharedCss =
           --_rgb-inner-orange-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.orangeRGB})`, -10))};
           --_rgb-inner-blue: ${styleGuide.color.blueRGB};
           --_rgb-inner-blue-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.blueRGB})`, -10))};
+          --_rgb-inner-green: ${styleGuide.color.greenRGB};
+          --_rgb-inner-green-darker: ${colorUtil.takeInner(colorUtil.lighten(`rgb(${styleGuide.color.greenRGB})`, -10))};
 
           /* -- Public colors -- */
           --color-primary-hex: ${colorUtil.toHex(`rgb(${styleGuide.color.primaryRGB})`)};
@@ -78,6 +80,17 @@ export const sharedCss =
           --color-red-26: rgba(var(--_rgb-inner-red), 0.26);
           --color-red-12: rgba(var(--_rgb-inner-red), 0.12);
           --color-red-06: rgba(var(--_rgb-inner-red), 0.06);
+          
+          --color-green-120: rgb(var(--_rgb-inner-green-darker));
+          --color-green-100: rgb(var(--_rgb-inner-green));
+          --color-green-87: rgba(var(--_rgb-inner-green), 0.87);
+          --color-green-70: rgba(var(--_rgb-inner-green), 0.70);
+          --color-green-54: rgba(var(--_rgb-inner-green), 0.54);
+          --color-green-50: rgba(var(--_rgb-inner-green), 0.50);
+          --color-green-38: rgba(var(--_rgb-inner-green), 0.38);
+          --color-green-26: rgba(var(--_rgb-inner-green), 0.26);
+          --color-green-12: rgba(var(--_rgb-inner-green), 0.12);
+          --color-green-06: rgba(var(--_rgb-inner-green), 0.06);
           
           --color-orange-120: rgb(var(--_rgb-inner-orange-darker));
           --color-orange-100: rgb(var(--_rgb-inner-orange));

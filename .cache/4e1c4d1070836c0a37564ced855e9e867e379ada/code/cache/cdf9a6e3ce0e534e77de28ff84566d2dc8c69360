@@ -1,0 +1,13 @@
+{
+  "code": "export const EventName = {\r\n    ATTACHED_FRAME: \"attached-frame\",\r\n    CLICK: \"click\",\r\n    RESIZE: \"resize\"\r\n};\r\n//# sourceMappingURL=EventName.js.map",
+  "map": {
+    "version": 3,
+    "file": "EventName.js",
+    "sourceRoot": "",
+    "sources": [
+      "../../../src/EventName/EventName.ts"
+    ],
+    "names": [],
+    "mappings": "AAEA,MAAM,CAAC,MAAM,SAAS,GAAe;IACpC,cAAc,EAAE,gBAAgB;IAChC,KAAK,EAAE,OAAO;IACd,MAAM,EAAE,QAAQ;CAChB,CAAC"
+  }
+}
