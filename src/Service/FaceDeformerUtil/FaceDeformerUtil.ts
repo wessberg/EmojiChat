@@ -330,7 +330,6 @@ export class FaceDeformerUtil implements IFaceDeformerUtil {
 		let minX = element.width;
 		let minY = element.height;
 
-
 		points.forEach(point => {
 			if (point[0] > maxX) maxX = point[0];
 			if (point[0] < minX) minX = point[0];

@@ -1,6 +1,6 @@
 import {IFaceTrackingModel, IFaceTrackingTracker} from "../../../Store/FaceTrackingModelStore/Interface/IFaceTrackingModelStore";
 
-export declare type IFaceDeformerElement = HTMLElement & {width: number, height: number};
+export declare type IFaceDeformerElement = HTMLElement&{ width: number, height: number };
 
 export interface IFaceDeformerUtil {
 	init (canvas: HTMLCanvasElement, tracker: IFaceTrackingTracker): void;

@@ -5,13 +5,32 @@ import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropO
 @selector("media-element")
 export class MediaComponent extends Component implements IMediaComponent {
 	public role = "presentation";
+	@prop public loading: boolean = false;
+	@prop public loaded: boolean = false;
 	protected placeholderMedia: string;
-	@prop protected loading: boolean = false;
-	@prop protected loaded: boolean = false;
-	@prop src: string;
 
 	static get observedAttributes (): string[] {
 		return ["loading", "loaded", "src", "cover", "contained"];
+	}
+
+	public get src (): string|null {
+		return this.getAttribute("src");
+	}
+
+	public get cover () {
+		return this.hasAttribute("cover");
+	}
+
+	public get contained () {
+		return this.hasAttribute("contained");
+	}
+
+	protected get hasMedia (): boolean {
+		return this.hasAttribute("src");
+	}
+
+	protected get currentMedia (): MediaStream|string|null {
+		return this.getAttribute("src");
 	}
 
 	async onPropChanged ({prop}: IPropChangeRecord): Promise<void> {
@@ -25,14 +44,6 @@ export class MediaComponent extends Component implements IMediaComponent {
 				this.toggleAttribute("loaded", this.loaded);
 				break;
 		}
-	}
-
-	protected get hasMedia (): boolean {
-		return this.hasAttribute("src");
-	}
-
-	protected get currentMedia (): MediaStream|string|null {
-		return this.getAttribute("src");
 	}
 
 	public async unload (): Promise<void> {

@@ -4,12 +4,6 @@ export class DebounceOperations implements IDebounceOperations {
 	private static timeouts: Map<string, NodeJS.Timer> = new Map();
 	private static scopedTimeouts: Map<{}, Map<string, NodeJS.Timer>> = new Map();
 
-	private getExistingTimeout (stringified: string, scope?: {}): [Map<string, NodeJS.Timer>|null, NodeJS.Timer|undefined|null] {
-		const timeouts = scope != null ? DebounceOperations.scopedTimeouts.get(scope) : DebounceOperations.timeouts;
-		if (timeouts == null) return [null, null];
-		return [timeouts, timeouts.get(stringified)];
-	}
-
 	public debounce (scope: {}, func: Function, waitTime: number = 0, immediate: boolean = false): void {
 
 		const stringified = func.toString();
@@ -32,6 +26,12 @@ export class DebounceOperations implements IDebounceOperations {
 		if (timeouts == null) timeouts = new Map();
 		timeouts.set(stringified, timeout);
 		if (scope != null) DebounceOperations.scopedTimeouts.set(scope, timeouts);
+	}
+
+	private getExistingTimeout (stringified: string, scope?: {}): [Map<string, NodeJS.Timer>|null, NodeJS.Timer|undefined|null] {
+		const timeouts = scope != null ? DebounceOperations.scopedTimeouts.get(scope) : DebounceOperations.timeouts;
+		if (timeouts == null) return [null, null];
+		return [timeouts, timeouts.get(stringified)];
 	}
 
 }

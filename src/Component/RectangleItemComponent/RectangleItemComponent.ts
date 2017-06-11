@@ -9,19 +9,6 @@ export class RectangleItemComponent extends Component implements IRectangleItemC
 		return ["width"];
 	}
 
-	protected async attributeChangedCallback (attrName: string, _: string, _2: string): Promise<void> {
-		switch (attrName) {
-			case "width":
-				const value = this.getAttribute("width");
-				if (value == null || value.length < 1) this.removeAttribute("width");
-				else {
-					const suffix = isNaN(parseInt(value[value.length -1])) ? "" : "px";
-					this.style.width = `${value}${suffix}`;
-				}
-				break;
-		}
-	}
-
 	public static markup (): string {
 		return `
 			<slot></slot>
@@ -168,5 +155,18 @@ export class RectangleItemComponent extends Component implements IRectangleItemC
             box-shadow: var(--shadow-level1);
         }
 		`;
+	}
+
+	protected async attributeChangedCallback (attrName: string, _: string, _2: string): Promise<void> {
+		switch (attrName) {
+			case "width":
+				const value = this.getAttribute("width");
+				if (value == null || value.length < 1) this.removeAttribute("width");
+				else {
+					const suffix = isNaN(parseInt(value[value.length - 1])) ? "" : "px";
+					this.style.width = `${value}${suffix}`;
+				}
+				break;
+		}
 	}
 }

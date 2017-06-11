@@ -111,16 +111,6 @@ export class Component extends HTMLElement implements IComponent {
 		return this.setCachedElement(selector, <HTMLElement> (this.shadowRoot == null ? document.querySelector(selector) : this.shadowRoot.querySelector(selector)));
 	}
 
-	protected connectedCallback () {
-		this.setAttribute("role", this.role);
-		this.setAttribute("tabindex", this.tabindex);
-	}
-
-	protected disconnectedCallback () {
-		if (this.parentElement) return;
-		eventUtil.clearListeners(this);
-	}
-
 	public addAttribute (name: string, value?: string): void {
 		if (!this.hasAttribute(name)) this.setAttribute(name, value === undefined ? "" : value);
 	}
@@ -139,6 +129,16 @@ export class Component extends HTMLElement implements IComponent {
 			if (condition) this.addAttribute(name);
 			else this.removeAttribute(name);
 		}
+	}
+
+	protected connectedCallback () {
+		this.setAttribute("role", this.role);
+		this.setAttribute("tabindex", this.tabindex);
+	}
+
+	protected disconnectedCallback () {
+		if (this.parentElement) return;
+		eventUtil.clearListeners(this);
 	}
 
 	private getCachedElement (selector: string): HTMLElement|undefined {

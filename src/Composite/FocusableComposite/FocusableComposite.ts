@@ -15,9 +15,9 @@ export class FocusableComposite extends Component implements IComposite {
 	public styles () {
 		// language=CSS
 		return `
-			:host {
-				display: none;
-			}
+        :host {
+            display: none;
+        }
 		`;
 	}
 

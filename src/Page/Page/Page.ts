@@ -37,6 +37,7 @@ export class Page extends ScrollComponent implements IPage {
             top: var(--app-bar-portrait-height);
             margin-bottom: var(--app-bar-portrait-height);
             position: absolute;
+						z-index: 600;
         }
 		`;
 	}

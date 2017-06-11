@@ -10,22 +10,22 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
 		// language=CSS
 		return `
         :host, card-element {
-            width: 350px;
+            width: 320px;
         }
-				
-				card-element {
+
+        card-element {
             padding: 0;
             width: inherit;
             max-width: inherit;
-				}
-				
-        #imageSlot::slotted(*) {
-            height: 150px;
         }
-				
-				::slotted(*) {
-						cursor: pointer !important;
-				}
+
+        #imageSlot::slotted(*) {
+            height: 230px;
+        }
+
+        ::slotted(*) {
+            cursor: pointer !important;
+        }
 
         #dateSlot::slotted(*) {
             color: var(--color-primary-text-light) !important;
@@ -33,18 +33,18 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
             line-height: var(--line-height-body) !important;
             padding-left: var(--distance-minimum) !important;
         }
-				
-				#actionSlot::slotted(*) {
-						padding-left: 10px;
-				}
-				
-				#actions {
+
+        #actionSlot::slotted(*) {
+            padding-left: 10px;
+        }
+
+        #actions {
             padding: 0 10px 10px 0;
             display: flex;
             flex-direction: row;
-						align-items: flex-end;
-						justify-content: flex-end;
-				}
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
 
         #dateContainer > icon-element {
             fill: var(--color-primary-text-light) !important;
@@ -56,10 +56,10 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
             align-items: center;
             justify-content: center;
             width: 100%;
-						margin: 0 auto -40px auto;
-						padding: var(--distance-minimum);
-						background: var(--color-black-38);
-						transform: translate3d(0, -56px, 0);
+            margin: 0 auto -40px auto;
+            padding: var(--distance-minimum);
+            background: var(--color-black-38);
+            transform: translate3d(0, -56px, 0);
         }
 		`;
 	}
@@ -73,9 +73,9 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
                 <icon-element icon="calendar-fill"></icon-element>
                 <slot id="dateSlot" name="date"></slot>
             </section>
-						<div id="actions">
+            <div id="actions">
                 <slot id="actionSlot" name="action"></slot>
-						</div>
+            </div>
         </card-element>
 		`;
 	}

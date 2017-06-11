@@ -1,5 +1,5 @@
 export interface IElementPositionRelationship {
-	relatedElement?: Element|null;
-	parentElement: Element|null;
-	relation?: "parentElement" | "previousElementSibling" | "nextElementSibling";
+	relatedElement?: Node|null;
+	parentNode: Node|null;
+	relation?: "parentNode"|"previousElementSibling"|"nextElementSibling";
 }

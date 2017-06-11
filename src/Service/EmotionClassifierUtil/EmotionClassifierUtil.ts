@@ -13,7 +13,6 @@ export class EmotionClassifierUtil implements IEmotionClassifierUtil {
 		if (model != null) this.init(model);
 	}
 
-
 	public init (model: IEmotionModel): void {
 		this.emotions = <IEmotion[]>Object.keys(model);
 		this.model = model;
@@ -49,7 +48,7 @@ export class EmotionClassifierUtil implements IEmotionClassifierUtil {
 			for (let i = 0; i < this.coefficientLength; i++) {
 				score += model.coefficients[i] * parameters[i + 6];
 			}
-			const value = 1.0/(1.0 + Math.exp(-score));
+			const value = 1.0 / (1.0 + Math.exp(-score));
 			const precision = value >= EmotionClassifierUtil.CERTAIN_PRECISION_THRESHOLD
 				? EmotionPredictionPrecisionKind.CERTAIN : EmotionPredictionPrecisionKind.MAYBE;
 			return {emotion, value, precision};

@@ -1,8 +1,8 @@
 import {Page} from "../Page/Page";
 import {IImageComposerPage} from "./Interface/IImageComposerPage";
-import {selector, uses} from "../../Component/Component/Component";
+import {prop, selector, uses} from "../../Component/Component/Component";
 import {ImageComponent} from "../../Component/ImageComponent/ImageComponent";
-import {animationOperations, eventUtil, navigationUtil, waitOperations} from "../../Service/Services";
+import {animationOperations, emojiStore, eventUtil, navigationUtil, waitOperations} from "../../Service/Services";
 import {BrowserResource} from "../../../Resource/BrowserResource";
 import {INavigationData} from "../../Service/NavigationUtil/Interface/INavigationUtil";
 import {IImageComponent} from "../../Component/ImageComponent/Interface/IImageComponent";
@@ -11,6 +11,7 @@ import {SnackbarComponent} from "../../Component/SnackbarComponent/SnackbarCompo
 import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
 import {ISnackbarComponent} from "../../Component/SnackbarComponent/Interface/ISnackbarComponent";
 import {ButtonComponent} from "../../Component/ButtonComponent/ButtonComponent";
+import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
 
 @selector("image-composer-page-element")
 @uses([ImageComponent, SnackbarComponent, AnchorComponent, ButtonComponent])
@@ -18,10 +19,11 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 	public static routeName = new RegExp(`${BrowserResource.path.root}compose`);
 	private static readonly SHUTTER_DURATION: number = 500;
 	private static readonly SHUTTER_EASING: string = "linear";
+	@prop private src: string|null = null;
 
 	public static styles (): string {
 		// language=CSS
-		return super.styles() + `			
+		return super.styles() + `
 
         #toggles {
             display: flex;
@@ -70,22 +72,22 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
                 <icon-element id="closeIcon" icon="close"></icon-element>
             </floating-button-element>
             <a id="downloadAction">
-							<floating-button-element id="downloadButton" primary>
-									<icon-element id="downloadIcon" icon="download-fill"></icon-element>
-							</floating-button-element>
-						</a>
+                <floating-button-element id="downloadButton" primary>
+                    <icon-element id="downloadIcon" icon="download-fill"></icon-element>
+                </floating-button-element>
+            </a>
             <floating-button-element id="sendButton" green>
                 <icon-element id="sendIcon" icon="send-fill"></icon-element>
             </floating-button-element>
-				</aside>
-			<snackbar-element id="savedInGallerySnackbar" floating right>
-					<p slot="message">Your EmojiChat is saved</p>
-					<anchor-element href="/gallery" slot="action">
-							<button-element class="snackbarButton" accent no-background width="70">
-									<p>Open</p>
-							</button-element>
-					</anchor-element>
-			</snackbar-element>
+        </aside>
+        <snackbar-element id="savedInGallerySnackbar" floating right>
+            <p slot="message">Your Emoji was saved</p>
+            <anchor-element href="/gallery" slot="action">
+                <button-element class="snackbarButton" accent no-background width="70">
+                    <p>Open</p>
+                </button-element>
+            </anchor-element>
+        </snackbar-element>
 		`;
 	}
 
@@ -106,13 +108,50 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 		await super.animateOut();
 	}
 
-	public setSrc (src: string): void {
-		const image = <IImageComponent> this.element("image");
-		const downloadAction = <HTMLAnchorElement> this.element("downloadAction");
-		image.setAttribute("src", src);
-		downloadAction.href = src;
-		downloadAction.download = src;
-		this.showSavedInGallerySnackbar().then();
+	public async didBecomeVisible (data?: INavigationData): Promise<void> {
+		await super.didBecomeVisible();
+		if (data != null && typeof data.src === "string") {
+			this.src = data.src;
+		}
+	}
+
+	async onPropChanged ({prop, newValue, oldValue}: IPropChangeRecord): Promise<void> {
+		await super.onPropChanged({prop, newValue, oldValue});
+		switch (prop) {
+
+			case "src":
+				const image = <IImageComponent> this.element("image");
+				const downloadAction = <HTMLAnchorElement> this.element("downloadAction");
+
+				if (this.src == null) {
+					image.removeAttribute("src");
+					if (downloadAction.hasAttribute("href")) downloadAction.removeAttribute("href");
+					if (downloadAction.hasAttribute("download")) downloadAction.removeAttribute("download");
+				} else {
+					image.setAttribute("src", this.src);
+					downloadAction.href = this.src;
+					downloadAction.download = this.src;
+					await this.storeComposedImage();
+				}
+				break;
+
+		}
+	}
+
+	protected async connectedCallback (): Promise<void> {
+		await super.connectedCallback();
+		eventUtil.listen(this, EventName.CLICK, this.element("closeButton"), this.onCloseButtonClicked);
+
+	}
+
+	private async storeComposedImage (): Promise<void> {
+		if (this.src == null) throw new ReferenceError(`${this.constructor.name} could not store a composed image: There was no image src!`);
+
+		emojiStore.createEmoji({
+			base64Src: this.src,
+			date: new Date()
+		});
+		await this.showSavedInGallerySnackbar();
 	}
 
 	private async showSavedInGallerySnackbar (): Promise<void> {
@@ -121,20 +160,6 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 		if (!this.visible) return;
 		const snackbar = <ISnackbarComponent>this.element("savedInGallerySnackbar");
 		await snackbar.open();
-	}
-
-	public async didBecomeVisible (data?: INavigationData): Promise<void> {
-		await super.didBecomeVisible();
-		if (data != null && typeof data.src === "string") {
-			this.setSrc(data.src);
-		}
-	}
-
-	protected async connectedCallback (): Promise<void> {
-		await super.connectedCallback();
-
-		eventUtil.listen(this, EventName.CLICK, this.element("closeButton"), this.onCloseButtonClicked);
-
 	}
 
 	private async onCloseButtonClicked (): Promise<void> {

@@ -56,22 +56,6 @@ export class MediaStreamUtil implements IMediaStreamUtil {
 		mediaStreamStore.setCameraFacing(null);
 	}
 
-	private async startInitialStream (videoElement: IVideoComponent): Promise<void> {
-		const constraints = await this.getInitialConstraints();
-		if (constraints == null) return; // The browser doesn't support neither audio nor video.
-
-		await this.startStream(videoElement, constraints);
-	}
-
-	private async getInitialConstraints (): Promise<IMediaStreamConstraints|null> {
-		const hasCamera = await mediaDeviceUtil.hasCamera();
-		const hasMicrophone = await mediaDeviceUtil.hasMicrophone();
-		if (hasCamera && hasMicrophone) return {audio: true, video: CameraFacingKind.FRONT};
-		if (hasCamera && !hasMicrophone) return {audio: false, video: CameraFacingKind.FRONT};
-		if (!hasCamera && hasMicrophone) return {audio: true};
-		return null;
-	}
-
 	public async startVideoStream (videoElement: IVideoComponent, facing: CameraFacingKind): Promise<void> {
 		await this.stopStream(videoElement);
 		try {
@@ -121,5 +105,21 @@ export class MediaStreamUtil implements IMediaStreamUtil {
 			mediaStreamStore.setMicrophonePermission(MediaPermissionKind.DENIED);
 			throw ex;
 		}
+	}
+
+	private async startInitialStream (videoElement: IVideoComponent): Promise<void> {
+		const constraints = await this.getInitialConstraints();
+		if (constraints == null) return; // The browser doesn't support neither audio nor video.
+
+		await this.startStream(videoElement, constraints);
+	}
+
+	private async getInitialConstraints (): Promise<IMediaStreamConstraints|null> {
+		const hasCamera = await mediaDeviceUtil.hasCamera();
+		const hasMicrophone = await mediaDeviceUtil.hasMicrophone();
+		if (hasCamera && hasMicrophone) return {audio: true, video: CameraFacingKind.FRONT};
+		if (hasCamera && !hasMicrophone) return {audio: false, video: CameraFacingKind.FRONT};
+		if (!hasCamera && hasMicrophone) return {audio: true};
+		return null;
 	}
 }

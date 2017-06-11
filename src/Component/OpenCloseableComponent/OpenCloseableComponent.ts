@@ -12,7 +12,6 @@ export class OpenCloseableComponent extends Component implements IOpenCloseableC
 	constructor () {
 		super();
 
-
 		eventUtil.listen(this, "keyup", this, this.onKeyboardButtonPressed);
 	}
 
@@ -22,20 +21,6 @@ export class OpenCloseableComponent extends Component implements IOpenCloseableC
 
 	public close () {
 		this.visible = false;
-	}
-
-	protected async preAnimateFocusIn (): Promise<void> {
-	}
-
-	protected async postAnimateFocusIn (): Promise<void> {
-		this.focus();
-	}
-
-	protected async preAnimateFocusOut (): Promise<void> {
-	}
-
-	protected async postAnimateFocusOut (): Promise<void> {
-		this.blur();
 	}
 
 	public async onPropChanged ({prop, newValue, oldValue}: IPropChangeRecord): Promise<void> {
@@ -68,6 +53,20 @@ export class OpenCloseableComponent extends Component implements IOpenCloseableC
 				}
 				break;
 		}
+	}
+
+	protected async preAnimateFocusIn (): Promise<void> {
+	}
+
+	protected async postAnimateFocusIn (): Promise<void> {
+		this.focus();
+	}
+
+	protected async preAnimateFocusOut (): Promise<void> {
+	}
+
+	protected async postAnimateFocusOut (): Promise<void> {
+		this.blur();
 	}
 
 	protected onDismissRequest (e?: MouseEvent): void {

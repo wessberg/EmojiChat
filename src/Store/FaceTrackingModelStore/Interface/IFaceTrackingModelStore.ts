@@ -47,7 +47,7 @@ export interface IFaceTrackingTracker {
 }
 
 export interface IFaceTrackingConstructorOptions {
-	 useWebGL: boolean;
+	useWebGL: boolean;
 }
 
 export interface IFaceTrackingWrapper {

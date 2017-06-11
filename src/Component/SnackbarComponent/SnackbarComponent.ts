@@ -100,14 +100,14 @@ export class SnackbarComponent extends OpenCloseableComponent implements ISnackb
             pointer-events: none;
         }
 
+        :host([floating][right]) {
+            left: auto;
+            right: 24px;
+        }
+
         @media screen and (min-width: 450px) {
             :host([floating]:not([right])) {
                 left: 24px;
-            }
-
-            :host([floating][right]) {
-                left: auto;
-                right: 24px;
             }
 
             :host([floating]) #container {

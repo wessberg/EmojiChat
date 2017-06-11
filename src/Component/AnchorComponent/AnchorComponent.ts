@@ -16,36 +16,36 @@ export class AnchorComponent extends Component implements IAnchorComponent {
 	public static styles (): string {
 		// language=CSS
 		return `
-			:host {
-				color: var(--color-primary-100);
-				font-size: var(--font-size-body);
-    		line-height: var(--line-height-body);
-    		font-weight: var(--font-weight-body);
-					outline: none;
-			}
-			
-			:host, a {
-				cursor: pointer;
-				user-select: text !important;
-			}
+        :host {
+            color: var(--color-primary-100);
+            font-size: var(--font-size-body);
+            line-height: var(--line-height-body);
+            font-weight: var(--font-weight-body);
+            outline: none;
+        }
 
-			a {
-    		text-decoration: none;
-    		font-family: var(--font-family), sans-serif;
-    		user-select: none;
-    		text-rendering: var(--font-rendering);
-    		margin: 0;
-    		font-size: inherit;
-    		line-height: inherit;
-    		font-weight: inherit;
-    		color: inherit;
-    		transition: color var(--duration-short) var(--easing-standard-curve);
-			}
-			
-			:host:hover a, :host:focus a,
-			a:hover, a:focus {
-				color: var(--color-primary-120) !important;
-			}
+        :host, a {
+            cursor: pointer;
+            user-select: text !important;
+        }
+
+        a {
+            text-decoration: none;
+            font-family: var(--font-family), sans-serif;
+            user-select: none;
+            text-rendering: var(--font-rendering);
+            margin: 0;
+            font-size: inherit;
+            line-height: inherit;
+            font-weight: inherit;
+            color: inherit;
+            transition: color var(--duration-short) var(--easing-standard-curve);
+        }
+
+        :host:hover a, :host:focus a,
+        a:hover, a:focus {
+            color: var(--color-primary-120) !important;
+        }
 		`;
 	}
 

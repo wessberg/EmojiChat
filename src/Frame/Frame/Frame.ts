@@ -10,9 +10,10 @@ import {eventUtil} from "../../Service/Services";
 import {EventName} from "../../EventName/EventName";
 import {Resource} from "../../../Resource/Resource";
 import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
+import {BackdropComponent} from "../../Component/BackdropComponent/BackdropComponent";
 
 @selector("frame-element")
-@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent, AnchorComponent])
+@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent, AnchorComponent, BackdropComponent])
 export class Frame extends Component implements IFrame {
 	public role = "application";
 
@@ -62,6 +63,7 @@ export class Frame extends Component implements IFrame {
 				</anchor-element>
             <slot slot="main"></slot>
         </app-drawer-element>
+        <backdrop-element></backdrop-element>
 		`;
 	}
 

@@ -72,10 +72,12 @@ export class NavigationUtil implements INavigationUtil {
 		const instance = this.getInstance(route);
 		const old = this.currentPageInstance;
 		this.currentPageInstance = instance;
+		eventUtil.fire(EventName.NAVIGATION_START, window);
 		await Promise.all([
 			instance.didBecomeVisible(data),
 			old != null ? old.didBecomeInvisible() : Promise.resolve()
 		]);
+		eventUtil.fire(EventName.NAVIGATION_END, window);
 	}
 
 	private getInstance (route: IRoute): IPage {
