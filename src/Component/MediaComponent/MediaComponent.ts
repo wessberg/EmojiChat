@@ -100,7 +100,6 @@ export class MediaComponent extends Component implements IMediaComponent {
 	}
 
 	protected onUnloadMediaAction (): void {
-		if (this.hasAttribute("src")) this.removeAttribute("src");
 		this.loaded = false;
 		this.loading = false;
 	}

@@ -21,6 +21,7 @@ export class AnchorComponent extends Component implements IAnchorComponent {
 				font-size: var(--font-size-body);
     		line-height: var(--line-height-body);
     		font-weight: var(--font-weight-body);
+					outline: none;
 			}
 			
 			:host, a {

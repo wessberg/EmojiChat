@@ -21,6 +21,7 @@ declare interface Document {
 
 /* tslint:disable */
 declare interface Window {
+	IntersectionObserver: IntersectionObserver;
 	XMLHttpRequest: XMLHttpRequest;
 	device?: { platform: string };
 	ActiveXObject?: string;

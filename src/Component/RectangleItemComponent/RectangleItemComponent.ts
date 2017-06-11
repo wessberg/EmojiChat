@@ -5,6 +5,23 @@ import {IRectangleItemComponent} from "./Interface/IRectangleItemComponent";
 export class RectangleItemComponent extends Component implements IRectangleItemComponent {
 	public role = "listitem";
 
+	static get observedAttributes (): string[] {
+		return ["width"];
+	}
+
+	protected async attributeChangedCallback (attrName: string, _: string, _2: string): Promise<void> {
+		switch (attrName) {
+			case "width":
+				const value = this.getAttribute("width");
+				if (value == null || value.length < 1) this.removeAttribute("width");
+				else {
+					const suffix = isNaN(parseInt(value[value.length -1])) ? "" : "px";
+					this.style.width = `${value}${suffix}`;
+				}
+				break;
+		}
+	}
+
 	public static markup (): string {
 		return `
 			<slot></slot>

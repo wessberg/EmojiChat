@@ -68,7 +68,7 @@ export class ScrollComponent extends Component implements IScrollComponent {
 		}
 	}
 
-	public disconnectedCallback (): void {
+	protected disconnectedCallback (): void {
 		super.disconnectedCallback();
 		this.unlistenForScrollTarget(this);
 	}

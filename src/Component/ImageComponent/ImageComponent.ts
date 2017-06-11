@@ -35,6 +35,10 @@ export class ImageComponent extends MediaComponent implements IImageComponent {
 				contain: strict;
 				border: none;
 			}
+			
+			img {
+					cursor: inherit;
+			}
 
 			:host(:not([loaded])) #mainImage,
 			:host([loaded]) #placeholderImage {

@@ -29,6 +29,10 @@ import {IImageSnapUtil} from "./ImageSnapUtil/Interface/IImageSnapUtil";
 import {ImageSnapUtil} from "./ImageSnapUtil/ImageSnapUtil";
 import {IDebounceOperations} from "./DebounceOperations/Interface/IDebounceOperations";
 import {DebounceOperations} from "./DebounceOperations/DebounceOperations";
+import {IDOMOperations} from "./DOMOperations/Interface/IDOMOperations";
+import {DOMOperations} from "./DOMOperations/DOMOperations";
+import {IChildMutationObserver} from "./ChildMutationObserver/Interface/IChildMutationObserver";
+import {ChildMutationObserver} from "./ChildMutationObserver/ChildMutationObserver";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -45,3 +49,5 @@ export const faceTrackingModelStore: IFaceTrackingModelStore = new FaceTrackingM
 export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifierUtil(emotionModelStore.getModel());
 export const imageSnapUtil: IImageSnapUtil = new ImageSnapUtil();
 export const debounceUtil: IDebounceOperations = new DebounceOperations();
+export const domUtil: IDOMOperations = new DOMOperations();
+export const childMutationObserver: IChildMutationObserver = new ChildMutationObserver();

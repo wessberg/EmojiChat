@@ -15,6 +15,7 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
 		return super.styles() + `
         :host {
             cursor: pointer !important;
+            outline: none;
         }
 
         .ripple {
@@ -58,7 +59,7 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
         }
 
         :host(:not([no-background])[green]:hover) {
-            background: var(--color-green-100);
+            background: var(--color-green-120);
         }
 
         :host([green]) .ripple {

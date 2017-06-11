@@ -46,34 +46,70 @@ export class CardComponent extends Component implements ICardComponent {
 			display: flex;
 			flex-direction: column;
 			background: var(--color-white-100);
-			box-shadow: var(--shadow-level4);
 			contain: content;
 			border-radius: var(--box-radius);
+		}
+		
+		:host([primary-action]),
+		:host([primary-action]) ::slotted(*) {
+				cursor: pointer !important;
+		}
+		
+		:host {
+        box-shadow: var(--shadow-level4);
+		}
+		
+		:host([primary-action]:hover) {
+        box-shadow: var(--shadow-level6);
 		}
 		
 		:host([shadow="1"]) {
 			box-shadow: var(--shadow-level1);
 		}
+
+    :host([primary-action][shadow="1"]:hover) {
+        box-shadow: var(--shadow-level3);
+    }
 		
 		:host([shadow="2"]) {
 			box-shadow: var(--shadow-level2);
 		}
+
+    :host([primary-action][shadow="2"]:hover) {
+        box-shadow: var(--shadow-level4);
+    }
 		
 		:host([shadow="3"]) {
 			box-shadow: var(--shadow-level3);
 		}
+
+    :host([primary-action][shadow="3"]:hover) {
+        box-shadow: var(--shadow-level5);
+    }
 		
 		:host([shadow="4"]) {
 			box-shadow: var(--shadow-level4);
 		}
+
+    :host([primary-action][shadow="4"]:hover) {
+        box-shadow: var(--shadow-level6);
+    }
 		
 		:host([shadow="5"]) {
 			box-shadow: var(--shadow-level5);
 		}
+
+    :host([primary-action][shadow="5"]:hover) {
+        box-shadow: var(--shadow-level7);
+    }
 		
 		:host([shadow="6"]) {
 			box-shadow: var(--shadow-level6);
 		}
+
+    :host([primary-action][shadow="6"]:hover) {
+        box-shadow: var(--shadow-level7);
+    }
 		
 		:host([shadow="7"]) {
 			box-shadow: var(--shadow-level7);

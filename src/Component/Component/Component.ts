@@ -1,6 +1,7 @@
 import {IComponent, IComponentConstructor} from "./IComponent";
 import {Resource} from "../../../Resource/Resource";
 import {IPropChangeRecord, IPropObserverConsumer} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
+import {eventUtil} from "../../Service/Services";
 
 /**
  * This is a semantic decorator for making sure that all used elements are in fact imported.
@@ -116,6 +117,8 @@ export class Component extends HTMLElement implements IComponent {
 	}
 
 	protected disconnectedCallback () {
+		if (this.parentElement) return;
+		eventUtil.clearListeners(this);
 	}
 
 	public addAttribute (name: string, value?: string): void {

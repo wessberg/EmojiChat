@@ -2,6 +2,9 @@ import {IPage} from "./Interface/IPage";
 import {ScrollComponent} from "../../Component/ScrollComponent/ScrollComponent";
 import {selector} from "../../Component/Component/Component";
 import {BrowserResource} from "../../../Resource/BrowserResource";
+import {animationOperations, eventUtil, waitOperations} from "../../Service/Services";
+import {EventName} from "../../EventName/EventName";
+import {ISnackbarAnimationOptions} from "../../Component/SnackbarComponent/Interface/ISnackbarComponent";
 
 @selector("page-element")
 export class Page extends ScrollComponent implements IPage {
@@ -13,6 +16,10 @@ export class Page extends ScrollComponent implements IPage {
 
 	static get observedAttributes () {
 		return ["visible"];
+	}
+
+	public get visible (): boolean {
+		return this.hasAttribute("visible");
 	}
 
 	public static testRoute (path: string): boolean {
@@ -36,14 +43,14 @@ export class Page extends ScrollComponent implements IPage {
 
 	public async didBecomeVisible (): Promise<void> {
 		this.addAttribute("visible");
+		eventUtil.listen(this, EventName.SNACKBAR_OPEN, window, this.onSnackbarOpen);
+		eventUtil.listen(this, EventName.SNACKBAR_CLOSE, window, this.onSnackbarClose);
 	}
 
 	public async didBecomeInvisible (): Promise<void> {
 		this.removeAttribute("visible");
-	}
-
-	public get visible (): boolean {
-		return this.hasAttribute("visible");
+		eventUtil.unlisten(this, EventName.SNACKBAR_OPEN, window, this.onSnackbarOpen);
+		eventUtil.unlisten(this, EventName.SNACKBAR_CLOSE, window, this.onSnackbarClose);
 	}
 
 	public async animateIn (): Promise<void> {
@@ -64,6 +71,22 @@ export class Page extends ScrollComponent implements IPage {
 				newValue == null ? await this.animateOut() : await this.animateIn();
 				break;
 		}
+	}
+
+	private async onSnackbarOpen ({detail}: Event&{ detail: ISnackbarAnimationOptions }): Promise<void> {
+		await waitOperations.wait(detail.delay);
+		await animationOperations.animate(this,
+			{transform: [`translate3d(0,0,0)`, `translate3d(0,-${detail.height}px,0)`]},
+			{duration: detail.duration, easing: detail.easing, fill: "forwards"}
+		);
+	}
+
+	private async onSnackbarClose ({detail}: Event&{ detail: ISnackbarAnimationOptions }): Promise<void> {
+		await waitOperations.wait(detail.delay);
+		await animationOperations.animate(this,
+			{transform: [`translate3d(0,-${detail.height}px,0)`, `translate3d(0,0,0)`]},
+			{duration: detail.duration, easing: detail.easing, fill: "forwards"}
+		);
 	}
 
 }

@@ -50,13 +50,7 @@ export class HomePage extends Page implements IHomePage {
 
 	public static styles (): string {
 		// language=CSS
-		return super.styles() + `
-
-        :host {
-            flex-direction: column;
-            align-content: flex-end;
-            justify-content: flex-end;
-        }
+		return super.styles() + `			
 
         :host(:not([has-multiple-cameras])) #switchCameraButton,
         :host([blocked-camera-permission]) {
@@ -67,7 +61,7 @@ export class HomePage extends Page implements IHomePage {
             display: none;
         }*/
 
-        :host, #toggles, #info {
+        #toggles, #info {
             display: flex;
         }
 
@@ -343,7 +337,6 @@ export class HomePage extends Page implements IHomePage {
 
 	private async onResize (): Promise<void> {
 		debounceUtil.debounce(this, async () => {
-			console.log("called!");
 			this.setDimensions();
 			if (this.isFaceTracking) {
 				await this.stopTracking();

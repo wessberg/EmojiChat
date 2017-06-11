@@ -7,9 +7,13 @@ import {BrowserResource} from "../../../Resource/BrowserResource";
 import {INavigationData} from "../../Service/NavigationUtil/Interface/INavigationUtil";
 import {IImageComponent} from "../../Component/ImageComponent/Interface/IImageComponent";
 import {EventName} from "../../EventName/EventName";
+import {SnackbarComponent} from "../../Component/SnackbarComponent/SnackbarComponent";
+import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
+import {ISnackbarComponent} from "../../Component/SnackbarComponent/Interface/ISnackbarComponent";
+import {ButtonComponent} from "../../Component/ButtonComponent/ButtonComponent";
 
 @selector("image-composer-page-element")
-@uses([ImageComponent])
+@uses([ImageComponent, SnackbarComponent, AnchorComponent, ButtonComponent])
 export class ImageComposerPage extends Page implements IImageComposerPage {
 	public static routeName = new RegExp(`${BrowserResource.path.root}compose`);
 	private static readonly SHUTTER_DURATION: number = 500;
@@ -17,18 +21,10 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 
 	public static styles (): string {
 		// language=CSS
-		return super.styles() + `
-        :host {
-            flex-direction: column;
-            align-content: flex-end;
-            justify-content: flex-end;
-        }
-
-        :host, #toggles {
-            display: flex;
-        }
+		return super.styles() + `			
 
         #toggles {
+            display: flex;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -40,7 +36,7 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
         }
 
         #toggles > * {
-            margin: 0 0 var(--distance-regular) var(--distance-minimum);
+            margin: 0 0 0 var(--distance-minimum);
         }
 
         #image, #shutterOverlay {
@@ -82,6 +78,14 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
                 <icon-element id="sendIcon" icon="send-fill"></icon-element>
             </floating-button-element>
 				</aside>
+			<snackbar-element id="savedInGallerySnackbar" floating right>
+					<p slot="message">Your EmojiChat is saved</p>
+					<anchor-element href="/gallery" slot="action">
+							<button-element class="snackbarButton" accent no-background width="70">
+									<p>Open</p>
+							</button-element>
+					</anchor-element>
+			</snackbar-element>
 		`;
 	}
 
@@ -108,6 +112,15 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 		image.setAttribute("src", src);
 		downloadAction.href = src;
 		downloadAction.download = src;
+		this.showSavedInGallerySnackbar().then();
+	}
+
+	private async showSavedInGallerySnackbar (): Promise<void> {
+		// Give it a rest
+		await waitOperations.waitForIdle();
+		if (!this.visible) return;
+		const snackbar = <ISnackbarComponent>this.element("savedInGallerySnackbar");
+		await snackbar.open();
 	}
 
 	public async didBecomeVisible (data?: INavigationData): Promise<void> {
@@ -121,7 +134,7 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 		await super.connectedCallback();
 
 		eventUtil.listen(this, EventName.CLICK, this.element("closeButton"), this.onCloseButtonClicked);
-		// eventUtil.listen(this, EventName.CLICK, this.element("downloadButton"), this.onDownloadButtonClicked);
+
 	}
 
 	private async onCloseButtonClicked (): Promise<void> {
