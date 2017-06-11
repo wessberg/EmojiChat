@@ -27,6 +27,8 @@ import {EmotionClassifierUtil} from "./EmotionClassifierUtil/EmotionClassifierUt
 import {EmotionModel} from "../Model/EmotionModel/EmotionModel";
 import {IImageSnapUtil} from "./ImageSnapUtil/Interface/IImageSnapUtil";
 import {ImageSnapUtil} from "./ImageSnapUtil/ImageSnapUtil";
+import {IDebounceOperations} from "./DebounceOperations/Interface/IDebounceOperations";
+import {DebounceOperations} from "./DebounceOperations/DebounceOperations";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -42,3 +44,4 @@ export const emotionModelStore: IEmotionModelStore = new EmotionModelStore(Emoti
 export const faceTrackingModelStore: IFaceTrackingModelStore = new FaceTrackingModelStore();
 export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifierUtil(emotionModelStore.getModel());
 export const imageSnapUtil: IImageSnapUtil = new ImageSnapUtil();
+export const debounceUtil: IDebounceOperations = new DebounceOperations();

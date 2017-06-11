@@ -9,9 +9,10 @@ import {GlobalObject} from "@wessberg/globalobject";
 import {eventUtil} from "../../Service/Services";
 import {EventName} from "../../EventName/EventName";
 import {Resource} from "../../../Resource/Resource";
+import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
 
 @selector("frame-element")
-@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent])
+@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent, AnchorComponent])
 export class Frame extends Component implements IFrame {
 	public role = "application";
 
@@ -28,11 +29,13 @@ export class Frame extends Component implements IFrame {
             width: 100%;
             height: 100vh;
         }
-
-        app-drawer-element > button-element > p {
-            padding-left: var(--distance-minimum);
-        }
 			
+			app-drawer-element > anchor-element > button-element {
+          position: relative;
+          width: 70px;
+					margin: 5px auto;
+			}
+
 		`;
 	}
 
@@ -47,12 +50,16 @@ export class Frame extends Component implements IFrame {
             <h6 slot="title">${Resource.app.meta.title}</h6>
         </app-bar-element>
         <app-drawer-element>
-            <button-element no-background dark slot="drawer">
-                <icon-element icon="people-fill" light medium></icon-element>
+        <anchor-element slot="drawer" href="/">
+        	<button-element no-background dark>
+                <icon-element icon="camera-fill" light medium></icon-element>
             </button-element>
-            <button-element no-background dark slot="drawer">
-                <icon-element icon="settings" light medium></icon-element>
+				</anchor-element>
+        <anchor-element slot="drawer" href="/gallery">
+        	<button-element no-background dark>
+                <icon-element icon="image" light medium></icon-element>
             </button-element>
+				</anchor-element>
             <slot slot="main"></slot>
         </app-drawer-element>
 		`;

@@ -14,7 +14,6 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 	public static routeName = new RegExp(`${BrowserResource.path.root}compose`);
 	private static readonly SHUTTER_DURATION: number = 500;
 	private static readonly SHUTTER_EASING: string = "linear";
-	private actionSubscriber: ((value: boolean) => void)|null;
 
 	public static styles (): string {
 		// language=CSS
@@ -74,17 +73,16 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
             <floating-button-element id="closeButton" warning>
                 <icon-element id="closeIcon" icon="close"></icon-element>
             </floating-button-element>
+            <a id="downloadAction">
+							<floating-button-element id="downloadButton" primary>
+									<icon-element id="downloadIcon" icon="download-fill"></icon-element>
+							</floating-button-element>
+						</a>
             <floating-button-element id="sendButton" green>
                 <icon-element id="sendIcon" icon="send-fill"></icon-element>
             </floating-button-element>
 				</aside>
 		`;
-	}
-
-	public onAction (payload: string): Promise<boolean> {
-		const image = <ImageComponent>this.element("image");
-		image.setAttribute("src", payload);
-		return new Promise<boolean>(resolve => this.actionSubscriber = resolve);
 	}
 
 	public async animateIn (): Promise<void> {
@@ -106,7 +104,10 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 
 	public setSrc (src: string): void {
 		const image = <IImageComponent> this.element("image");
+		const downloadAction = <HTMLAnchorElement> this.element("downloadAction");
 		image.setAttribute("src", src);
+		downloadAction.href = src;
+		downloadAction.download = src;
 	}
 
 	public async didBecomeVisible (data?: INavigationData): Promise<void> {
@@ -120,6 +121,7 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 		await super.connectedCallback();
 
 		eventUtil.listen(this, EventName.CLICK, this.element("closeButton"), this.onCloseButtonClicked);
+		// eventUtil.listen(this, EventName.CLICK, this.element("downloadButton"), this.onDownloadButtonClicked);
 	}
 
 	private async onCloseButtonClicked (): Promise<void> {

@@ -14,6 +14,7 @@ export class AnchorComponent extends Component implements IAnchorComponent {
 	}
 
 	public static styles (): string {
+		// language=CSS
 		return `
 			:host {
 				color: var(--color-primary-100);

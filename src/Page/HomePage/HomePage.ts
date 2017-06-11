@@ -7,7 +7,7 @@ import {FloatingButtonComponent} from "../../Component/FloatingButtonComponent/F
 import {IconComponent} from "../../Component/IconComponent/IconComponent";
 import {IEmotion} from "../../Model/EmotionModel/Interface/IEmotionModel";
 import {EmotionPredictionPrecisionKind} from "../../Service/EmotionClassifierUtil/Interface/IEmotionClassifierUtil";
-import {emotionClassifierUtil, eventUtil, faceTrackingModelStore, imageSnapUtil, mediaDeviceUtil, mediaStreamStore, mediaStreamUtil, navigationUtil, waitOperations} from "../../Service/Services";
+import {debounceUtil, emotionClassifierUtil, eventUtil, faceTrackingModelStore, imageSnapUtil, mediaDeviceUtil, mediaStreamStore, mediaStreamUtil, navigationUtil, waitOperations} from "../../Service/Services";
 import {ITrackerModelPath} from "../../../Resource/Interface/IResource";
 import {CameraFacingKind, MediaStreamKind} from "../../Service/MediaDeviceUtil/Interface/IMediaDeviceUtil";
 import {IVideoComponent} from "../../Component/VideoComponent/Interface/IVideoComponent";
@@ -342,11 +342,14 @@ export class HomePage extends Page implements IHomePage {
 	}
 
 	private async onResize (): Promise<void> {
-		this.setDimensions();
-		if (this.isFaceTracking) {
-			await this.stopTracking();
-			await this.startTracking();
-		}
+		debounceUtil.debounce(this, async () => {
+			console.log("called!");
+			this.setDimensions();
+			if (this.isFaceTracking) {
+				await this.stopTracking();
+				await this.startTracking();
+			}
+		}, 100);
 	}
 
 	private setDimensions (): void {
