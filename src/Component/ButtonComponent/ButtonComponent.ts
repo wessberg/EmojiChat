@@ -86,6 +86,8 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
         ::slotted(*) {
             pointer-events: none;
             cursor: pointer !important;
+						margin-top: auto !important;
+						margin-bottom: auto !important;
         }
 		`;
 	}

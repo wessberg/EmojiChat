@@ -1,4 +1,4 @@
-import "./Loader";
+import "./Polyfill/PolyfillLoader";
 import {agentDetector, globalEventBlocker} from "./Service/Services";
 import {SvgIconUtil} from "./Service/SvgIconUtil/SvgIconUtil";
 import {CALENDAR_FILL, CAMERA_FILL, CLOSE, DOWNLOAD_FILL, IMAGE, MENU, MICROPHONE_FILL, MICROPHONE_OFF, PEOPLE_FILL, REVERSE_CAMERA_FILL, SEND_FILL, VIDEO_CAMERA_FILL} from "./Asset/Icon/Standard/MaterialIcons";

@@ -43,6 +43,7 @@ export class DialogComponent extends ModalComponent implements IDialogComponent 
             justify-content: center;
             z-index: 1000;
             transform: translate3d(0, 0, 0);
+						outline: none !important;
         }
 
         #container {

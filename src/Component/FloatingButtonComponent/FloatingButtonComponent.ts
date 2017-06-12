@@ -96,6 +96,7 @@ export class FloatingButtonComponent extends ButtonComponent implements IFloatin
         ::slotted(icon-element) {
             width: var(--width-icon-medium) !important;
             height: var(--width-icon-medium) !important;
+						margin: auto !important;
         }
 		`;
 	}

@@ -42,6 +42,8 @@ import {DateUtil} from "./DateUtil/DateUtil";
 import {IGuideStore} from "../Store/GuideStore/Interface/IGuideStore";
 import {GuideStore} from "../Store/GuideStore/GuideStore";
 import {Guides} from "../Model/Guide/Guides";
+import {IServiceWorkerUtil} from "./ServiceWorkerUtil/Interface/IServiceWorkerUtil";
+import {ServiceWorkerUtil} from "./ServiceWorkerUtil/ServiceWorkerUtil";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -62,5 +64,6 @@ export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifi
 export const imageSnapUtil: IImageSnapUtil = new ImageSnapUtil();
 export const debounceUtil: IDebounceOperations = new DebounceOperations();
 export const domUtil: IDOMOperations = new DOMOperations();
+export const serviceWorkerUtil: IServiceWorkerUtil = new ServiceWorkerUtil();
 export const childMutationObserver: IChildMutationObserver = new ChildMutationObserver();
 export const dateUtil: IDateUtil = new DateUtil();

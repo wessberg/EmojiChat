@@ -47,7 +47,6 @@ export class RectangleItemComponent extends Component implements IRectangleItemC
             min-width: 46px;
             width: 200px;
             height: 46px;
-            padding: 14px;
             border-radius: var(--box-radius);
             flex-shrink: 0;
             transition: background var(--duration-medium) var(--easing-standard-curve);

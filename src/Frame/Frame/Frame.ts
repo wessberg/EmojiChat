@@ -6,7 +6,7 @@ import {IconComponent} from "../../Component/IconComponent/IconComponent";
 import {AppDrawerComponent} from "../../Component/AppDrawerComponent/AppDrawerComponent";
 import {ButtonComponent} from "../../Component/ButtonComponent/ButtonComponent";
 import {GlobalObject} from "@wessberg/globalobject";
-import {eventUtil, guideStore, waitOperations} from "../../Service/Services";
+import {eventUtil, guideStore, serviceWorkerUtil, waitOperations} from "../../Service/Services";
 import {EventName} from "../../EventName/EventName";
 import {Resource} from "../../../Resource/Resource";
 import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
@@ -32,6 +32,7 @@ export class Frame extends Component implements IFrame {
             display: block;
             width: 100%;
             height: 100vh;
+						outline: none !important;
         }
 			
 			app-drawer-element > anchor-element > button-element {
@@ -73,10 +74,13 @@ export class Frame extends Component implements IFrame {
 
 	protected async connectedCallback (): Promise<void> {
 		super.connectedCallback();
+		await waitOperations.waitForIdle();
 		eventUtil.fire(EventName.ATTACHED_FRAME, GlobalObject, this);
 		eventUtil.listen(this, EventName.CLICK, this.element("menuButton"), this.onClickedMenu);
-		await waitOperations.waitForIdle();
+
+		// Sometime in the future, show the welcome guide and begin registering the service worker.
 		this.showWelcomeGuide();
+		serviceWorkerUtil.register(Resource.app.path.dist.serviceWorker(1));
 	}
 
 	private onClickedMenu (): void {

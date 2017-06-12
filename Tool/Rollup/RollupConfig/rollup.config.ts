@@ -58,6 +58,7 @@ const PRODUCTION_PLUGINS: IRollupPlugin[] = Config.PRODUCTION ? [
 				fromRoot(Resource.app.path.dist.indexHtml()),
 				fromRoot(Resource.app.path.dist.polyfill.webAnimations()),
 				fromRoot(Resource.app.path.dist.polyfill.pointerEvents()),
+				fromRoot(Resource.app.path.dist.polyfill.requestIdleCallback()),
 				fromRoot(Resource.app.path.dist.lib.tracker.tracker()),
 				fromRoot(Resource.app.path.dist.lib.tracker.model.model1()),
 				fromRoot(Resource.app.path.dist.lib.tracker.model.model2()),
@@ -132,14 +133,14 @@ const sortPlugins = (a: IRollupPlugin, b: IRollupPlugin) => {
 
 async function serve (): Promise<void> {
 	const {key, cert} = DevServerResource.tls;
-	if (key == null || cert == null) throw new ReferenceError(`No key or certificate was found. Couldn't serve via TLS!`);
+	if (Environment.TLS && (key == null || cert == null)) throw new ReferenceError(`No key or certificate was found. Couldn't serve via TLS!`);
 
 	const devServer = new DevServer(
 		fromRoot(Resource.app.path.dist.directory()),
 		DevServerResource.meta.host,
 		DevServerResource.meta.port,
-		key,
-		cert
+		Environment.TLS ? key : undefined,
+		Environment.TLS ? cert : undefined
 	);
 
 	try {

@@ -1,0 +1,12 @@
+{
+  "root": "dist",
+  "staticFileGlobs": [
+    "dist/**/*.js",
+    "dist/**/*.svg",
+    "dist/**/*.css",
+    "dist/**/*.html",
+    "dist/**/*.manifest",
+    "dist/**/*.ico"
+  ],
+  "stripPrefix": "dist"
+}

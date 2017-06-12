@@ -1,1 +1,0 @@
-{"version":3,"file":"DevServerResource.js","sourceRoot":"","sources":["../../../Resource/DevServerResource.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,WAAW,EAAE,UAAU,EAAC,MAAM,4BAA4B,CAAC;AAGnE,MAAM,CAAC,MAAM,iBAAiB,GAAuB;IACpD,IAAI,EAAE;QACL,IAAI,EAAE,WAAW;QACjB,IAAI,EAAE,IAAI;KACV;IACD,GAAG,EAAE;QACJ,GAAG,EAAE,UAAU;QACf,IAAI,EAAE,WAAW;KACjB;CACD,CAAC"}

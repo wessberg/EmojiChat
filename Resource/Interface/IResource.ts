@@ -13,6 +13,7 @@ export interface IDistPath extends ICommonPath {
 	indexHtml: DirectoryGetter;
 	sharedCss: DirectoryGetter;
 	manifest: DirectoryGetter;
+	serviceWorker: DirectoryGetter;
 }
 
 export interface IEmojiPath {
@@ -108,6 +109,7 @@ export interface IPolyfillPath {
 	directory: DirectoryGetter;
 	webAnimations: DirectoryGetter;
 	pointerEvents: DirectoryGetter;
+	requestIdleCallback: DirectoryGetter;
 }
 
 export interface IStaticAsset {

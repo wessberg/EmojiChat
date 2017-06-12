@@ -43,13 +43,17 @@ const TRACKER_LIB_MODEL4_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB
 const TRACKER_LIB_MODEL5_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL5_NAME}`;
 const TRACKER_LIB_MODEL6_SRC_PATH = `${TRACKER_LIB_MODEL_SRC_PATH}/${TRACKER_LIB_MODEL6_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIRECTORY_NAME = "WebAnimationsPolyfill";
+const REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_NAME = "RequestIdleCallbackPolyfill";
 const POINTER_EVENTS_POLYFILL_DIRECTORY_NAME = "PointerEventsPolyfill";
 const WEB_ANIMATIONS_POLYFILL_NAME = "web-animations.min.js";
+const REQUEST_IDLE_CALLBACK_POLYFILL_NAME = "request-idle-callback.min.js";
 const POINTER_EVENTS_POLYFILL_NAME = "pointer-events.min.js";
 const POLYFILL_SRC_PATH = `${SRC_DIRECTORY}/${POLYFILL_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIRECTORY_SRC_PATH = `${POLYFILL_SRC_PATH}/${WEB_ANIMATIONS_POLYFILL_DIRECTORY_NAME}`;
+const REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_SRC_PATH = `${POLYFILL_SRC_PATH}/${REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_NAME}`;
 const POINTER_EVENTS_POLYFILL_DIRECTORY_SRC_PATH = `${POLYFILL_SRC_PATH}/${POINTER_EVENTS_POLYFILL_DIRECTORY_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_SRC_PATH = `${WEB_ANIMATIONS_POLYFILL_DIRECTORY_SRC_PATH}/${WEB_ANIMATIONS_POLYFILL_NAME}`;
+const REQUEST_IDLE_CALLBACK_POLYFILL_SRC_PATH = `${REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_SRC_PATH}/${REQUEST_IDLE_CALLBACK_POLYFILL_NAME}`;
 const POINTER_EVENTS_POLYFILL_SRC_PATH = `${POINTER_EVENTS_POLYFILL_DIRECTORY_SRC_PATH}/${POINTER_EVENTS_POLYFILL_NAME}`;
 const PRODUCT_ICONS_DIRECTORY_NAME = "Product";
 const STANDARD_ICONS_DIRECTORY_NAME = "Standard";
@@ -77,13 +81,15 @@ const MATERIAL_ICONS_SRC_PATH = `${STANDARD_ICONS_DIRECTORY}/${MATERIAL_ICONS_NA
 const IOS_ICONS_SRC_PATH = `${STANDARD_ICONS_DIRECTORY}/${IOS_ICONS_NAME}`;
 const INDEX_NAME = `index.${Config.MOBILE ? "mobile" : "desktop"}`;
 const SHARED_CSS_NAME = `shared.${Config.MOBILE ? "mobile" : "desktop"}.css`;
-const INDEX_HTML_NAME = `${INDEX_NAME}.html`;
+const INDEX_HTML_NAME = `index.html`;
+const SERVICE_WORKER_NAME = "service-worker.js";
 const INDEX_HTML_JS_NAME = `index.html.js`;
 const SHARED_CSS_JS_NAME = `shared.css.js`;
 const SHARED_CSS_JS_SRC_PATH = `${SRC_DIRECTORY}/${SHARED_CSS_JS_NAME}`;
 const INDEX_HTML_JS_SRC_PATH = `${SRC_DIRECTORY}/${INDEX_HTML_JS_NAME}`;
 const BUNDLE_NAME = `${INDEX_NAME}.js`;
 const DIST_DIRECTORY = "dist";
+const SERVICE_WORKER_DIST_PATH = `${DIST_DIRECTORY}/${SERVICE_WORKER_NAME}`;
 const FAVICON_DIST_PATH = `${DIST_DIRECTORY}/${FAVICON_NAME}`;
 const MANIFEST_DIST_PATH = `${DIST_DIRECTORY}/${MANIFEST_NAME}`;
 const INDEX_HTML_DIST_PATH = `${DIST_DIRECTORY}/${INDEX_HTML_NAME}`;
@@ -101,8 +107,10 @@ const IMAGE_EMOJI_SAD_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EM
 const IMAGE_EMOJI_SURPRISED_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_SURPRISED_NAME}`;
 const POLYFILL_DIST_PATH = `${DIST_DIRECTORY}/${POLYFILL_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${WEB_ANIMATIONS_POLYFILL_DIRECTORY_NAME}`;
+const REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_NAME}`;
 const POINTER_EVENTS_POLYFILL_DIRECTORY_DIST_PATH = `${POLYFILL_DIST_PATH}/${POINTER_EVENTS_POLYFILL_DIRECTORY_NAME}`;
 const WEB_ANIMATIONS_POLYFILL_DIST_PATH = `${WEB_ANIMATIONS_POLYFILL_DIRECTORY_DIST_PATH}/${WEB_ANIMATIONS_POLYFILL_NAME}`;
+const REQUEST_IDLE_CALLBACK_POLYFILL_DIST_PATH = `${REQUEST_IDLE_CALLBACK_POLYFILL_DIRECTORY_DIST_PATH}/${REQUEST_IDLE_CALLBACK_POLYFILL_NAME}`;
 const POINTER_EVENTS_POLYFILL_DIST_PATH = `${POINTER_EVENTS_POLYFILL_DIRECTORY_DIST_PATH}/${POINTER_EVENTS_POLYFILL_NAME}`;
 const LIB_DIST_PATH = `${DIST_DIRECTORY}/${LIB_NAME}`;
 const TRACKER_LIB_DIRECTORY_DIST_PATH = `${LIB_DIST_PATH}/${TRACKER_LIB_DIRECTORY_NAME}`;
@@ -157,12 +165,21 @@ const STATIC_ASSETS: IStaticAsset[] = [
 	},
 	{
 		from (steps?: number) {
+			return relativePath(REQUEST_IDLE_CALLBACK_POLYFILL_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(REQUEST_IDLE_CALLBACK_POLYFILL_DIST_PATH, steps);
+		}
+	},
+	{
+		from (steps?: number) {
 			return relativePath(TRACKER_LIB_SRC_PATH, steps);
 		},
 		to (steps?: number) {
 			return relativePath(TRACKER_LIB_DIST_PATH, steps);
 		}
 	},
+	/*
 	{
 		from (steps?: number) {
 			return relativePath(TRACKER_LIB_MODEL1_SRC_PATH, steps);
@@ -187,6 +204,7 @@ const STATIC_ASSETS: IStaticAsset[] = [
 			return relativePath(TRACKER_LIB_MODEL3_DIST_PATH, steps);
 		}
 	},
+	*/
 	{
 		from (steps?: number) {
 			return relativePath(TRACKER_LIB_MODEL4_SRC_PATH, steps);
@@ -195,6 +213,7 @@ const STATIC_ASSETS: IStaticAsset[] = [
 			return relativePath(TRACKER_LIB_MODEL4_DIST_PATH, steps);
 		}
 	},
+	/*
 	{
 		from (steps?: number) {
 			return relativePath(TRACKER_LIB_MODEL5_SRC_PATH, steps);
@@ -211,6 +230,7 @@ const STATIC_ASSETS: IStaticAsset[] = [
 			return relativePath(TRACKER_LIB_MODEL6_DIST_PATH, steps);
 		}
 	},
+	*/
 	{
 		from (steps?: number) {
 			return relativePath(IMAGE_EMOJI_ANGRY_SRC_PATH, steps);
@@ -331,6 +351,9 @@ export const Resource: IResource = {
 					},
 					pointerEvents (steps?: number) {
 						return relativePath(POINTER_EVENTS_POLYFILL_DIST_PATH, steps);
+					},
+					requestIdleCallback (steps?: number) {
+						return relativePath(REQUEST_IDLE_CALLBACK_POLYFILL_DIST_PATH, steps);
 					}
 				},
 				lib: {
@@ -377,6 +400,9 @@ export const Resource: IResource = {
 				},
 				manifest (steps?: number) {
 					return relativePath(MANIFEST_DIST_PATH, steps);
+				},
+				serviceWorker (steps?: number) {
+					return relativePath(SERVICE_WORKER_DIST_PATH, steps);
 				},
 				favicon (steps?: number) {
 					return relativePath(FAVICON_DIST_PATH, steps);
@@ -466,6 +492,9 @@ export const Resource: IResource = {
 					},
 					pointerEvents (steps?: number) {
 						return relativePath(POINTER_EVENTS_POLYFILL_SRC_PATH, steps);
+					},
+					requestIdleCallback (steps?: number) {
+						return relativePath(REQUEST_IDLE_CALLBACK_POLYFILL_SRC_PATH, steps);
 					}
 				},
 				lib: {
