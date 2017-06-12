@@ -92,11 +92,6 @@ export class GalleryPage extends Page implements IGalleryPage {
         <button-element class="removeButton" width="80" slot="action">
                 <p>Remove</p>
             </button-element>
-        <anchor-element href="/share" slot="action">
-            <button-element width="80">
-                <p>Share</p>
-            </button-element>
-         </anchor-element>
 		`;
 	}
 

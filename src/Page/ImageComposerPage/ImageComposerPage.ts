@@ -76,9 +76,6 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
                     <icon-element id="downloadIcon" icon="download-fill"></icon-element>
                 </floating-button-element>
             </a>
-            <floating-button-element id="sendButton" green>
-                <icon-element id="sendIcon" icon="send-fill"></icon-element>
-            </floating-button-element>
         </aside>
         <snackbar-element id="savedInGallerySnackbar" floating right>
             <p slot="message">Your Emoji was saved</p>
