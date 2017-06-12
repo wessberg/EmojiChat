@@ -27,7 +27,7 @@ export default function ManifestUpgrader () {
 				const DEST_DIR = join(__dirname, Resource.app.path.dist.directory(-5));
 				const DESTINATION = join(__dirname, Resource.app.path.dist.manifest(-5));
 
-				const updatedManifest = manifest(Resource.app.meta, styleGuide);
+				const updatedManifest = manifest(Resource.app, styleGuide);
 				const exists = await fileLoader.exists(DEST_DIR);
 
 				if (!exists) {

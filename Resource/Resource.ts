@@ -14,6 +14,10 @@ const ASSET_SRC_PATH = `${SRC_DIRECTORY}/${ASSET_NAME}`;
 const IMAGE_NAME = "Image";
 const ICON_NAME = "Image";
 const IMAGE_EMOJI_NAME = "Emoji";
+const IMAGE_MANIFEST_NAME = "Manifest";
+const IMAGE_MANIFEST_ANDROID_CHROME_192x192_NAME = "android-chrome-192x192.png";
+const IMAGE_MANIFEST_ANDROID_CHROME_512x512_NAME = "android-chrome-512x512.png";
+const IMAGE_MANIFEST_APPLE_TOUCH_ICON_NAME = "apple-touch-icon.png";
 const IMAGE_EMOJI_ANGRY_NAME = "angry_emoji.svg";
 const IMAGE_EMOJI_DISGUSTED_NAME = "disgusted_emoji.svg";
 const IMAGE_EMOJI_FEAR_NAME = "fear_emoji.svg";
@@ -65,6 +69,10 @@ const MATERIAL_ICONS_NAME = "MaterialIcons.ts";
 const IMAGE_SRC_PATH = `${ASSET_SRC_PATH}/${IMAGE_NAME}`;
 const ICON_SRC_PATH = `${ASSET_SRC_PATH}/${ICON_NAME}`;
 const IMAGE_EMOJI_DIRECTORY_SRC_PATH = `${IMAGE_SRC_PATH}/${IMAGE_EMOJI_NAME}`;
+const IMAGE_MANIFEST_DIRECTORY_SRC_PATH = `${IMAGE_SRC_PATH}/${IMAGE_MANIFEST_NAME}`;
+const IMAGE_MANIFEST_ANDROID_CHROME_192x192_SRC_PATH = `${IMAGE_MANIFEST_DIRECTORY_SRC_PATH}/${IMAGE_MANIFEST_ANDROID_CHROME_192x192_NAME}`;
+const IMAGE_MANIFEST_ANDROID_CHROME_512x512_SRC_PATH = `${IMAGE_MANIFEST_DIRECTORY_SRC_PATH}/${IMAGE_MANIFEST_ANDROID_CHROME_512x512_NAME}`;
+const IMAGE_MANIFEST_APPLE_TOUCH_ICON_SRC_PATH = `${IMAGE_MANIFEST_DIRECTORY_SRC_PATH}/${IMAGE_MANIFEST_APPLE_TOUCH_ICON_NAME}`;
 const IMAGE_EMOJI_ANGRY_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_ANGRY_NAME}`;
 const IMAGE_EMOJI_DISGUSTED_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_DISGUSTED_NAME}`;
 const IMAGE_EMOJI_FEAR_SRC_PATH = `${IMAGE_EMOJI_DIRECTORY_SRC_PATH}/${IMAGE_EMOJI_FEAR_NAME}`;
@@ -98,6 +106,10 @@ const BUNDLE_DIST_PATH = `${DIST_DIRECTORY}/${BUNDLE_NAME}`;
 const ASSET_DIST_PATH = `${DIST_DIRECTORY}/${ASSET_NAME}`;
 const IMAGE_DIST_PATH = `${ASSET_DIST_PATH}/${IMAGE_NAME}`;
 const IMAGE_EMOJI_DIRECTORY_DIST_PATH = `${IMAGE_DIST_PATH}/${IMAGE_EMOJI_NAME}`;
+const IMAGE_MANIFEST_DIRECTORY_DIST_PATH = `${IMAGE_DIST_PATH}/${IMAGE_MANIFEST_NAME}`;
+const IMAGE_MANIFEST_ANDROID_CHROME_192x192_DIST_PATH = `${IMAGE_MANIFEST_DIRECTORY_DIST_PATH}/${IMAGE_MANIFEST_ANDROID_CHROME_192x192_NAME}`;
+const IMAGE_MANIFEST_ANDROID_CHROME_512x512_DIST_PATH = `${IMAGE_MANIFEST_DIRECTORY_DIST_PATH}/${IMAGE_MANIFEST_ANDROID_CHROME_512x512_NAME}`;
+const IMAGE_MANIFEST_APPLE_TOUCH_ICON_DIST_PATH = `${IMAGE_MANIFEST_DIRECTORY_DIST_PATH}/${IMAGE_MANIFEST_APPLE_TOUCH_ICON_NAME}`;
 const IMAGE_EMOJI_ANGRY_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_ANGRY_NAME}`;
 const IMAGE_EMOJI_DISGUSTED_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_DISGUSTED_NAME}`;
 const IMAGE_EMOJI_FEAR_DIST_PATH = `${IMAGE_EMOJI_DIRECTORY_DIST_PATH}/${IMAGE_EMOJI_FEAR_NAME}`;
@@ -179,32 +191,6 @@ const STATIC_ASSETS: IStaticAsset[] = [
 			return relativePath(TRACKER_LIB_DIST_PATH, steps);
 		}
 	},
-	/*
-	{
-		from (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL1_SRC_PATH, steps);
-		},
-		to (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL1_DIST_PATH, steps);
-		}
-	},
-	{
-		from (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL2_SRC_PATH, steps);
-		},
-		to (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL2_DIST_PATH, steps);
-		}
-	},
-	{
-		from (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL3_SRC_PATH, steps);
-		},
-		to (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL3_DIST_PATH, steps);
-		}
-	},
-	*/
 	{
 		from (steps?: number) {
 			return relativePath(TRACKER_LIB_MODEL4_SRC_PATH, steps);
@@ -213,24 +199,30 @@ const STATIC_ASSETS: IStaticAsset[] = [
 			return relativePath(TRACKER_LIB_MODEL4_DIST_PATH, steps);
 		}
 	},
-	/*
 	{
 		from (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL5_SRC_PATH, steps);
+			return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_192x192_SRC_PATH, steps);
 		},
 		to (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL5_DIST_PATH, steps);
+			return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_192x192_DIST_PATH, steps);
 		}
 	},
 	{
 		from (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL6_SRC_PATH, steps);
+			return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_512x512_SRC_PATH, steps);
 		},
 		to (steps?: number) {
-			return relativePath(TRACKER_LIB_MODEL6_DIST_PATH, steps);
+			return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_512x512_DIST_PATH, steps);
 		}
 	},
-	*/
+	{
+		from (steps?: number) {
+			return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_SRC_PATH, steps);
+		},
+		to (steps?: number) {
+			return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_DIST_PATH, steps);
+		}
+	},
 	{
 		from (steps?: number) {
 			return relativePath(IMAGE_EMOJI_ANGRY_SRC_PATH, steps);
@@ -313,6 +305,20 @@ export const Resource: IResource = {
 					image: {
 						directory (steps?: number) {
 							return relativePath(IMAGE_DIST_PATH, steps);
+						},
+						manifest: {
+							directory (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_DIRECTORY_DIST_PATH, steps);
+							},
+							androidChrome192x192 (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_192x192_DIST_PATH, steps);
+							},
+							androidChrome512x512 (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_512x512_DIST_PATH, steps);
+							},
+							appleTouchIcon (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_DIST_PATH, steps);
+							},
 						},
 						emoji: {
 							directory (steps?: number) {
@@ -422,6 +428,20 @@ export const Resource: IResource = {
 					image: {
 						directory (steps?: number) {
 							return relativePath(IMAGE_SRC_PATH, steps);
+						},
+						manifest: {
+							directory (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_DIRECTORY_SRC_PATH, steps);
+							},
+							androidChrome192x192 (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_192x192_SRC_PATH, steps);
+							},
+							androidChrome512x512 (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_ANDROID_CHROME_512x512_SRC_PATH, steps);
+							},
+							appleTouchIcon (steps?: number) {
+								return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_SRC_PATH, steps);
+							},
 						},
 						emoji: {
 							directory (steps?: number) {

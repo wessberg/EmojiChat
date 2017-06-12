@@ -27,9 +27,17 @@ export interface IEmojiPath {
 	surprised: DirectoryGetter;
 }
 
+export interface IManifestImagePath {
+	directory: DirectoryGetter;
+	androidChrome192x192: DirectoryGetter;
+	androidChrome512x512: DirectoryGetter;
+	appleTouchIcon: DirectoryGetter;
+}
+
 export interface IImagePath {
 	directory: DirectoryGetter;
 	emoji: IEmojiPath;
+	manifest: IManifestImagePath;
 }
 
 export interface IIconPath {
