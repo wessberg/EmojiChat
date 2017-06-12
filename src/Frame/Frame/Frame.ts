@@ -6,14 +6,17 @@ import {IconComponent} from "../../Component/IconComponent/IconComponent";
 import {AppDrawerComponent} from "../../Component/AppDrawerComponent/AppDrawerComponent";
 import {ButtonComponent} from "../../Component/ButtonComponent/ButtonComponent";
 import {GlobalObject} from "@wessberg/globalobject";
-import {eventUtil} from "../../Service/Services";
+import {eventUtil, guideStore, waitOperations} from "../../Service/Services";
 import {EventName} from "../../EventName/EventName";
 import {Resource} from "../../../Resource/Resource";
 import {AnchorComponent} from "../../Component/AnchorComponent/AnchorComponent";
 import {BackdropComponent} from "../../Component/BackdropComponent/BackdropComponent";
+import {WelcomeGuideComponent} from "../../Component/WelcomeGuideComponent/WelcomeGuideComponent";
+import {GuideKind} from "../../Model/Guide/Interface/IGuide";
+import {IWelcomeGuideComponent} from "../../Component/WelcomeGuideComponent/Interface/IWelcomeGuideComponent";
 
 @selector("frame-element")
-@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent, AnchorComponent, BackdropComponent])
+@uses([IconComponent, ButtonComponent, AppBarComponent, AppBarItemComponent, AppDrawerComponent, AnchorComponent, BackdropComponent, WelcomeGuideComponent])
 export class Frame extends Component implements IFrame {
 	public role = "application";
 
@@ -64,18 +67,33 @@ export class Frame extends Component implements IFrame {
             <slot slot="main"></slot>
         </app-drawer-element>
         <backdrop-element></backdrop-element>
+        <welcome-guide-element id="welcomeGuide" dismissable></welcome-guide-element>
 		`;
 	}
 
-	connectedCallback (): void {
+	protected async connectedCallback (): Promise<void> {
 		super.connectedCallback();
 		eventUtil.fire(EventName.ATTACHED_FRAME, GlobalObject, this);
 		eventUtil.listen(this, EventName.CLICK, this.element("menuButton"), this.onClickedMenu);
+		await waitOperations.waitForIdle();
+		this.showWelcomeGuide();
 	}
 
 	private onClickedMenu (): void {
 		const appDrawer = this.element("app-drawer-element");
 		if (appDrawer.hasAttribute("open")) appDrawer.removeAttribute("open");
 		else appDrawer.setAttribute("open", "");
+	}
+
+	private showWelcomeGuide (): void {
+		const guide = guideStore.getGuideFromKind(GuideKind.WELCOME);
+		if (guide.seen) return;
+
+		const guideElement = <IWelcomeGuideComponent> this.element("welcomeGuide");
+		guideElement.open();
+
+
+		guide.seen = true;
+		guideStore.updateGuide(guide.id, guide);
 	}
 }

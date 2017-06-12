@@ -104,6 +104,11 @@ export class IconComponent extends Component implements IIconComponent {
             height: var(--height-icon-huge);
         }
 
+        :host([huger]) {
+            width: var(--width-icon-huger);
+            height: var(--height-icon-huger);
+        }
+
         :host([extreme]) {
             width: var(--width-icon-extreme);
             height: var(--height-icon-extreme);

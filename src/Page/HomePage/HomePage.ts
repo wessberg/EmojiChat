@@ -17,9 +17,11 @@ import {IIconComponent} from "../../Component/IconComponent/Interface/IIconCompo
 import {IFloatingButtonComponent} from "../../Component/FloatingButtonComponent/Interface/IFloatingButtonComponent";
 import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropObserverConsumer";
 import {BrowserResource} from "../../../Resource/BrowserResource";
+import {IDialogComponent} from "../../Component/DialogComponent/Interface/IDialogComponent";
+import {BlockedCameraDialogComponent} from "../../Component/BlockedCameraDialogComponent/BlockedCameraDialogComponent";
 
 @selector("home-page-element")
-@uses([VideoComponent, FloatingButtonComponent, IconComponent])
+@uses([VideoComponent, FloatingButtonComponent, IconComponent, BlockedCameraDialogComponent])
 export class HomePage extends Page implements IHomePage {
 	/*private static readonly MICROPHONE_ACTIVE_ATTRIBUTE = "microphone-active";*/
 	public static routeName = new RegExp(BrowserResource.path.root);
@@ -50,7 +52,7 @@ export class HomePage extends Page implements IHomePage {
 
 	public static styles (): string {
 		// language=CSS
-		return super.styles() + `			
+		return super.styles() + `
 
         :host(:not([has-multiple-cameras])) #switchCameraButton,
         :host([blocked-camera-permission]) {
@@ -80,7 +82,7 @@ export class HomePage extends Page implements IHomePage {
             transition: opacity var(--duration-medium) var(--easing-standard-curve);
         }
 
-        :host([face-tracking]:not([has-found-face])) #info {
+        :host([face-tracking]:not([has-found-face]):not([blocked-camera-permission])) #info {
             opacity: 1;
         }
 
@@ -171,6 +173,9 @@ export class HomePage extends Page implements IHomePage {
         <aside id="info">
             <h5>Looking for your face...</h5>
         </aside>
+        <blocked-camera-dialog-element id="blockedCameraDialog" dismissable>
+
+        </blocked-camera-dialog-element>
 
 		`;
 	}
@@ -356,6 +361,8 @@ export class HomePage extends Page implements IHomePage {
 	}
 
 	private async onTakePictureButtonClicked (): Promise<void> {
+		if (this.blockedCameraPermission) return this.showBlockedCameraDialog();
+
 		const nativeVideo = (<IVideoComponent>this.element("video")).nativeVideoElement;
 
 		const dataURL = await imageSnapUtil.takePicture(nativeVideo, {
@@ -402,14 +409,28 @@ export class HomePage extends Page implements IHomePage {
 
 	private async onToggleStreamButtonClicked (): Promise<void> {
 		if (this.cameraActive) await this.stopStream();
-		else await this.startStream();
+		else {
+			const success = await this.startStream();
+			if (!success) this.showBlockedCameraDialog();
+		}
 	}
 
-	private async startStream (): Promise<void> {
-		await this.startVideoStream();
-		{
+	private async startStream (): Promise<boolean> {
+
+		// If the video stream returns false, the user has most likely blocked the camera permission.
+		if (await this.startVideoStream()) {
+			if (this.isFaceTracking) {
+				await this.stopTracking();
+			}
 			await this.startTracking();
+			return true;
 		}
+		return false;
+	}
+
+	private showBlockedCameraDialog (): void {
+		const dialog = <IDialogComponent> this.element("blockedCameraDialog");
+		dialog.open();
 	}
 
 	private async onSwitchCameraButtonClicked (): Promise<void> {

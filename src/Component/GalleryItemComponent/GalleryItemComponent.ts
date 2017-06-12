@@ -23,10 +23,6 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
             height: 230px;
         }
 
-        ::slotted(*) {
-            cursor: pointer !important;
-        }
-
         #dateSlot::slotted(*) {
             color: var(--color-primary-text-light) !important;
             font-size: var(--font-size-body) !important;
@@ -67,7 +63,7 @@ export class GalleryItemComponent extends Component implements IGalleryItemCompo
 	public static markup (): string {
 		// language=HTML
 		return `
-        <card-element primary-action>
+        <card-element>
             <slot id="imageSlot" name="image"></slot>
             <section id="dateContainer">
                 <icon-element icon="calendar-fill"></icon-element>

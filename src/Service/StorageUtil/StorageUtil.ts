@@ -43,6 +43,26 @@ export class StorageUtil implements IStorageUtil {
 		return normalizedEntry;
 	}
 
+	public update<T extends {}> (id: number, entry: T, collection: CollectionKind): boolean {
+		// If the collection doesn't exist, throw an exception.
+		if (!this.hasCollection(collection)) throw new ReferenceError(`${this.constructor.name} could not update an item for collection: ${collection}: It didn't exist!`);
+
+		// Make sure that the entry has an ID.
+		const normalizedEntry = <IStorageEntry<T>>{...(<{}>entry), ...{id}};
+		const all: IStorageEntry<T>[] = this.getAll<T>(collection);
+		if (all == null) throw new ReferenceError(`${this.constructor.name} could not update an item for collection: ${collection}: No entries exist within it!`);
+
+		const filtered = all.filter(item => item.id !== id);
+
+		// No entry had the given ID.
+		if (filtered.length === all.length) return false;
+
+		filtered.push(normalizedEntry);
+
+		this.setInStorage(collection, filtered);
+		return true;
+	}
+
 	public remove (id: number, collection: CollectionKind): boolean {
 		// If the collection doesn't exist, throw an exception.
 		if (!this.hasCollection(collection)) throw new ReferenceError(`${this.constructor.name} could not remove items for collection: ${collection}: It didn't exist!`);

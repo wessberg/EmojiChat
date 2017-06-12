@@ -10,8 +10,8 @@ export const EventName: IEventName = {
 	APP_DRAWER_CLOSE: "app-drawer-close",
 	NAVIGATION_START: "navigation-start",
 	NAVIGATION_END: "navigation-end",
-	ZOOM_IN_STARTED: "zoom-in-started",
-	ZOOM_IN_ENDED: "zoom-in-ended",
-	ZOOM_OUT_STARTED: "zoom-out-started",
-	ZOOM_OUT_ENDED: "zoom-out-ended",
+	FOCUS_IN_STARTED: "FOCUS-in-started",
+	FOCUS_IN_ENDED: "FOCUS-in-ended",
+	FOCUS_OUT_STARTED: "FOCUS-out-started",
+	FOCUS_OUT_ENDED: "FOCUS-out-ended",
 };

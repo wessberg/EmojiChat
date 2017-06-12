@@ -8,14 +8,14 @@ import {ISortOptions} from "../Store/Interface/IStore";
 export class EmojiStore extends Store implements IEmojiStore {
 	private static readonly EMOJI_COLLECTION: CollectionKind = "emoji";
 
-	public async getNewEmojis (existing: IEmoji[], sortOptions?: ISortOptions<IEmoji>): Promise<IEmoji[]> {
+	public getNewEmojis (existing: IEmoji[], sortOptions?: ISortOptions<IEmoji>): IEmoji[] {
 		const allEmojis = storageUtil.getAll<IEmoji>(EmojiStore.EMOJI_COLLECTION);
 
 		const filtered = allEmojis.filter(emoji => existing.find(existing => existing.id === emoji.id) == null);
 		return sortOptions == null ? filtered : this.sortEmojis(filtered, sortOptions);
 	}
 
-	public async readEmojis (sortOptions?: ISortOptions<IEmoji>): Promise<IEmoji[]> {
+	public readEmojis (sortOptions?: ISortOptions<IEmoji>): IEmoji[] {
 		const emojis = storageUtil.getAll<IEmoji>(EmojiStore.EMOJI_COLLECTION);
 		if (sortOptions == null) return emojis;
 		return this.sortEmojis(emojis, sortOptions);

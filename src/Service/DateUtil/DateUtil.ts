@@ -14,7 +14,7 @@ export class DateUtil implements IDateUtil {
 			case RelativeTimeKind.MINUTES_AGO:
 				return `${value} minutes ago`;
 			case RelativeTimeKind.HOUR_AGO:
-				return "an hours ago";
+				return "an hour ago";
 			case RelativeTimeKind.HOURS_AGO:
 				return `${value} hours ago`;
 			case RelativeTimeKind.YESTERDAY:

@@ -78,7 +78,7 @@ export class BackdropComponent extends Component implements IBackdropComponent {
 
 	protected connectedCallback (): void {
 		super.connectedCallback();
-		eventUtil.listen(this, EventName.ZOOM_IN_STARTED, window, this.show);
-		eventUtil.listen(this, EventName.ZOOM_OUT_STARTED, window, this.hide);
+		eventUtil.listen(this, EventName.FOCUS_IN_STARTED, window, this.show);
+		eventUtil.listen(this, EventName.FOCUS_OUT_STARTED, window, this.hide);
 	}
 }

@@ -95,12 +95,20 @@ export class RectangleItemComponent extends Component implements IRectangleItemC
             background: var(--color-accent-100);
         }
 
-        :host([accent]) ::slotted(*) {
+        :host(:not([as-color])[accent]) ::slotted(*) {
             color: var(--color-primary-text-light) !important;
         }
 
-        :host([accent]) ::slotted(icon-element) {
+        :host([accent][as-color]) ::slotted(*) {
+            color: var(--color-accent-100) !important;
+        }
+
+        :host(:not([as-color])[accent]) ::slotted(icon-element) {
             fill: var(--color-icon-light) !important;
+        }
+
+        :host([as-color][accent]) ::slotted(icon-element) {
+            fill: var(--color-primary-100) !important;
         }
 
         :host(:not([no-background])[dark]) {

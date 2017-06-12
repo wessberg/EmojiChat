@@ -303,27 +303,27 @@ export class ZoomableComposite extends Component implements IZoomableComposite {
 		if (this.target == null) return;
 		this.zoomed = false;
 		this.zooming = true;
-		eventUtil.fire(EventName.ZOOM_IN_STARTED, window);
+		eventUtil.fire(EventName.FOCUS_IN_STARTED, window);
 	}
 
 	private onZoomOutAction (): void {
 		if (this.target == null) return;
 		this.zooming = true;
-		eventUtil.fire(EventName.ZOOM_OUT_STARTED, window);
+		eventUtil.fire(EventName.FOCUS_OUT_STARTED, window);
 	}
 
 	private onZoomInSuccessfulAction (): void {
 		if (this.target == null) return;
 		this.zoomed = true;
 		this.zooming = false;
-		eventUtil.fire(EventName.ZOOM_IN_ENDED, window);
+		eventUtil.fire(EventName.FOCUS_IN_ENDED, window);
 	}
 
 	private onZoomOutSuccessfulAction (): void {
 		if (this.target == null) return;
 		this.zoomed = false;
 		this.zooming = false;
-		eventUtil.fire(EventName.ZOOM_OUT_ENDED, window);
+		eventUtil.fire(EventName.FOCUS_OUT_ENDED, window);
 	}
 
 	private async onGlobalResize (): Promise<void> {

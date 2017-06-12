@@ -39,6 +39,9 @@ import {IEmojiStore} from "../Store/EmojiStore/Interface/IEmojiStore";
 import {EmojiStore} from "../Store/EmojiStore/EmojiStore";
 import {IDateUtil} from "./DateUtil/Interface/IDateUtil";
 import {DateUtil} from "./DateUtil/DateUtil";
+import {IGuideStore} from "../Store/GuideStore/Interface/IGuideStore";
+import {GuideStore} from "../Store/GuideStore/GuideStore";
+import {Guides} from "../Model/Guide/Guides";
 
 export const globalEventBlocker: IGlobalEventBlocker = new GlobalEventBlocker();
 export const agentDetector: IAgentDetector = new AgentDetector();
@@ -49,14 +52,15 @@ export const animationOperations: IAnimationOperations = new AnimationOperations
 export const navigationUtil: INavigationUtil = new NavigationUtil(Routes);
 export const mediaDeviceUtil: IMediaDeviceUtil = new MediaDeviceUtil();
 export const mediaStreamUtil: IMediaStreamUtil = new MediaStreamUtil();
+export const storageUtil: IStorageUtil = new StorageUtil();
 export const mediaStreamStore: IMediaStreamStore = new MediaStreamStore();
 export const emotionModelStore: IEmotionModelStore = new EmotionModelStore(EmotionModel);
 export const faceTrackingModelStore: IFaceTrackingModelStore = new FaceTrackingModelStore();
 export const emojiStore: IEmojiStore = new EmojiStore();
+export const guideStore: IGuideStore = new GuideStore(Guides);
 export const emotionClassifierUtil: IEmotionClassifierUtil = new EmotionClassifierUtil(emotionModelStore.getModel());
 export const imageSnapUtil: IImageSnapUtil = new ImageSnapUtil();
 export const debounceUtil: IDebounceOperations = new DebounceOperations();
 export const domUtil: IDOMOperations = new DOMOperations();
 export const childMutationObserver: IChildMutationObserver = new ChildMutationObserver();
-export const storageUtil: IStorageUtil = new StorageUtil();
 export const dateUtil: IDateUtil = new DateUtil();

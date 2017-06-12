@@ -9,6 +9,7 @@ export interface IStorageUtil {
 	get<T extends {}> (id: number, collection: CollectionKind): IStorageEntry<T>|null;
 	getAll<T extends {}> (collection: CollectionKind): IStorageEntry<T>[];
 	add<T extends {}> (entry: T, collection: CollectionKind): IStorageEntry<T>;
+	update<T extends {}> (id: number, entry: T, collection: CollectionKind): boolean;
 	remove (id: number, collection: CollectionKind): boolean;
 }
 

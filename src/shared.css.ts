@@ -204,6 +204,7 @@ export const sharedCss =
           --width-icon-large: 40px;
           --width-icon-larger: 61px;
           --width-icon-huge: 100px;
+          --width-icon-huger: 180px;
           --width-icon-extreme: 284px;
           --width-icon-brutal: 712px;
           --width-frame-max: 830px;
@@ -216,6 +217,7 @@ export const sharedCss =
           --height-icon-large: 40px;
           --height-icon-larger: 61px;
           --height-icon-huge: 100px;
+          --height-icon-huger: 180px;
           --height-icon-extreme: 284px;
           --height-icon-brutal: 712px;
 
