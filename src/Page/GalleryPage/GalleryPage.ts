@@ -3,7 +3,7 @@ import {IGalleryPage} from "./Interface/IGalleryPage";
 import {prop, selector, uses} from "../../Component/Component/Component";
 import {BrowserResource} from "../../../Resource/BrowserResource";
 import {GalleryItemComponent} from "../../Component/GalleryItemComponent/GalleryItemComponent";
-import {childMutationObserver, dateUtil, emojiStore, eventUtil} from "../../Service/Services";
+import {childMutationObserver, dateUtil, emojiStore, eventUtil, fingerprintStore} from "../../Service/Services";
 import {IImageComponent} from "../../Component/ImageComponent/Interface/IImageComponent";
 import {IEmoji} from "../../Model/Emoji/Interface/IEmoji";
 import {IconComponent} from "../../Component/IconComponent/IconComponent";
@@ -19,7 +19,7 @@ export class GalleryPage extends Page implements IGalleryPage {
 	private static readonly HAS_CONTENT_ATTRIBUTE_NAME = "has-content";
 	@prop protected boundIntersectionObserver: IntersectionObserver|null;
 	@prop private gridSize: number = 0;
-	private gridMap: Map<IEmoji, IGalleryItemComponent> = new Map();
+	private gridMap: Map<string, IGalleryItemComponent> = new Map();
 
 	private get galleryItems (): Element[] {
 		return Array.from(this.element("grid").children);
@@ -34,13 +34,13 @@ export class GalleryPage extends Page implements IGalleryPage {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
-						align-content: center;
-						justify-content: center;
+            align-content: center;
+            justify-content: center;
         }
 
         #grid > gallery-item-element {
             margin: calc(var(--distance-minimum) / 2);
-						max-width: 100%;
+            max-width: 100%;
         }
 
         #placeholderSection {
@@ -84,14 +84,18 @@ export class GalleryPage extends Page implements IGalleryPage {
 		`;
 	}
 
-	private static gridItemMarkup ({base64Src, date}: IEmoji): string {
+	private static gridItemMarkup ({base64Src, date}: IEmoji, isOwner: boolean): string {
 		// language=HTML
 		return `
-        <zoomable-image-element cover slot="image" src="${base64Src}"></zoomable-image-element>
+        <zoomable-image-element cover autoload slot="image" src="${base64Src}"></zoomable-image-element>
         <small slot="date">${dateUtil.toRelative(date)}</small>
-        <button-element class="removeButton" width="80" slot="action">
-                <p>Remove</p>
-            </button-element>
+        ${
+			isOwner
+				? `
+                  <button-element class="removeButton" width="80" slot="action"><p>Remove</p></button-element>`
+				: `
+                  <button-element class="removeButton" width="80" slot="action" disabled><p>Remove</p></button-element>`
+			}
 		`;
 	}
 
@@ -122,7 +126,6 @@ export class GalleryPage extends Page implements IGalleryPage {
 
 	public async didBecomeVisible (): Promise<void> {
 		await super.didBecomeVisible();
-		await this.addToGrid(await emojiStore.getNewEmojis([...this.gridMap.keys()], {key: "date"}));
 	}
 
 	protected async connectedCallback (): Promise<void> {
@@ -131,6 +134,7 @@ export class GalleryPage extends Page implements IGalleryPage {
 		this.bindIntersectionObservers();
 		this.observeChildMutations();
 		this.findChildrenForIntersectionObserver().forEach(child => this.observeChild(child));
+		await this.hookUpEmojis();
 	}
 
 	protected observeChild (child: Element): void {
@@ -153,31 +157,39 @@ export class GalleryPage extends Page implements IGalleryPage {
 		this.unbindChildMutationObserver();
 	}
 
-	private constructGridItem (emoji: IEmoji): IGalleryItemComponent {
+	private async hookUpEmojis (): Promise<void> {
+		const emojis = await emojiStore.readEmojis({key: "date"});
+		const fingerprint = await fingerprintStore.getFingerPrint();
+		this.addToGrid(emojis, fingerprint);
+		emojiStore.onEmojiAdded(emoji => this.addToGrid([emoji], fingerprint));
+		emojiStore.onEmojiRemoved(emoji => this.removeFromGrid([emoji]));
+	}
+
+	private constructGridItem (emoji: IEmoji, isOwner: boolean): IGalleryItemComponent {
 		const galleryItem = <IGalleryItemComponent> document.createElement("gallery-item-element");
-		galleryItem.innerHTML = GalleryPage.gridItemMarkup(emoji);
+		galleryItem.innerHTML = GalleryPage.gridItemMarkup(emoji, isOwner);
 		const removeButton = galleryItem.getElementsByClassName("removeButton")[0];
 		if (removeButton != null) eventUtil.listen(this, EventName.CLICK, removeButton, () => this.onRemoveButtonClicked(emoji));
 		return galleryItem;
 	}
 
-	private addToGrid (emojis: IEmoji[]): void {
+	private addToGrid (emojis: IEmoji[], fingerprint: string): void {
 		const grid = this.element("grid");
 
 		emojis.forEach(emoji => {
-			const galleryItem = this.constructGridItem(emoji);
+			const galleryItem = this.constructGridItem(emoji, emoji.owner === fingerprint);
 			grid.insertBefore(galleryItem, grid.firstChild);
-			this.gridMap.set(emoji, galleryItem);
+			this.gridMap.set(emoji.id, galleryItem);
 		});
 		this.gridSize = this.gridSize + emojis.length;
 	}
 
 	private removeFromGrid (emojis: IEmoji[]): void {
 		emojis.forEach(emoji => {
-			const element = this.gridMap.get(emoji);
+			const element = this.gridMap.get(emoji.id);
 			if (element == null) throw new ReferenceError(`${this.constructor.name} could not remove an emoji from the grid: No element was associated with it!`);
 			if (element.parentNode != null) element.parentNode.removeChild(element);
-			this.gridMap.delete(emoji);
+			this.gridMap.delete(emoji.id);
 		});
 		this.gridSize = this.gridSize - emojis.length;
 	}
@@ -223,8 +235,7 @@ export class GalleryPage extends Page implements IGalleryPage {
 		);
 	}
 
-	private onRemoveButtonClicked (emoji: IEmoji): void {
-		emojiStore.deleteEmoji(emoji.id);
-		this.removeFromGrid([emoji]);
+	private async onRemoveButtonClicked (emoji: IEmoji): Promise<void> {
+		await emojiStore.deleteEmoji(emoji.id);
 	}
 }

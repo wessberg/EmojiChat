@@ -78,7 +78,7 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
             background: var(--color-primary-120) !important;
         }
 
-        :host[disabled] {
+        :host([disabled]) {
             pointer-events: none;
             opacity: .6;
         }
@@ -86,8 +86,8 @@ export class ButtonComponent extends RectangleItemComponent implements IButtonCo
         ::slotted(*) {
             pointer-events: none;
             cursor: pointer !important;
-						margin-top: auto !important;
-						margin-bottom: auto !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
         }
 		`;
 	}

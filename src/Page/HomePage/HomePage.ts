@@ -351,7 +351,7 @@ export class HomePage extends Page implements IHomePage {
 	}
 
 	private setDimensions (): void {
-		const video = <HTMLVideoElement> this.element("video");
+		const video = <IVideoComponent> this.element("video");
 		const overlay = this.element("overlay");
 		const {offsetWidth, offsetHeight} = video;
 		video.setAttribute("width", `${offsetWidth}`);

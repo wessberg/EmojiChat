@@ -8,5 +8,5 @@ export interface IGuideDict {
 }
 
 export interface IGuide extends IGuideDict {
-	id: number;
+	id: string;
 }

@@ -1,13 +1,11 @@
 import {CodeAnalyzer} from "@wessberg/codeanalyzer";
-import {Marshaller} from "@wessberg/marshaller";
 import MagicString from "magic-string";
 import {IRollupOptions, ITransformResult} from "../Interface/IRollupPluginOptions";
 import {CSSTranspiler} from "../Util/PostCSS/PostCSS";
-import {fileLoader, typeDetector} from "../../../Service/Services";
 
 let rollupOptions: IRollupOptions;
 
-const analyzer = new CodeAnalyzer(new Marshaller(typeDetector), fileLoader);
+const analyzer = new CodeAnalyzer();
 
 /**
  * This transform simply just minifies the inline CSS, autoprefixes variables and removes :hover pseudo-selectors if required.

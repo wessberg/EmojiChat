@@ -1,6 +1,6 @@
 export enum CameraFacingKind {
-	FRONT = <any>"user",
-	REAR = <any>"environment"
+	FRONT = "user",
+	REAR = "environment"
 }
 
 export enum MediaStreamKind {

@@ -6,8 +6,9 @@ import {resolve} from "path";
 import {Config} from "@wessberg/environment";
 
 export interface IResponseHeaders {
-	"Content-Type"?: string;
-	"content-encoding"?: string;
+	[key: string]: string;
+	"Content-Type": string;
+	"content-encoding": string;
 }
 
 enum StatusCode {
@@ -95,7 +96,7 @@ export class DevServer {
 	}
 
 	private getResponseHeaders (path: string): IResponseHeaders {
-		const responseHeaders: IResponseHeaders = {"Content-Type": this.getMimeType(path)};
+		const responseHeaders: IResponseHeaders = <any>{"Content-Type": this.getMimeType(path)};
 		if (Config.PRODUCTION && this.isGzippedFilePath(path)) {
 			responseHeaders["content-encoding"] = "gzip";
 		}
@@ -113,7 +114,7 @@ export class DevServer {
 
 	private requestAcceptsGzip (request: ServerRequest): boolean {
 		const acceptHeaders = request.headers["accept-encoding"];
-		return acceptHeaders.includes("gzip");
+		return acceptHeaders != null && acceptHeaders.includes("gzip");
 	}
 
 	private getMimeType (path: string): string {
@@ -127,7 +128,7 @@ export class DevServer {
 	}
 	*/
 
-	private resolveIndexHTML (_: string): string {
+	private  resolveIndexHTML (_: string): string {
 		return `index.html`;
 	}
 
@@ -139,7 +140,7 @@ export class DevServer {
 		const userAgent = request.headers["user-agent"];
 		let filePath = resolve(`${this.contentBase}${urlPath}`);
 
-		if (urlPath.endsWith("/")) {
+		if (typeof userAgent === "string" && urlPath.endsWith("/")) {
 			filePath = resolve(filePath, this.resolveIndexHTML(userAgent));
 		}
 

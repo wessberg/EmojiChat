@@ -32,14 +32,14 @@ export class Frame extends Component implements IFrame {
             display: block;
             width: 100%;
             height: 100vh;
-						outline: none !important;
+            outline: none !important;
         }
-			
-			app-drawer-element > anchor-element > button-element {
-          position: relative;
-          width: 70px;
-					margin: 5px auto;
-			}
+
+        app-drawer-element > anchor-element > button-element {
+            position: relative;
+            width: 70px;
+            margin: 5px auto;
+        }
 
 		`;
 	}
@@ -89,15 +89,14 @@ export class Frame extends Component implements IFrame {
 		else appDrawer.setAttribute("open", "");
 	}
 
-	private showWelcomeGuide (): void {
-		const guide = guideStore.getGuideFromKind(GuideKind.WELCOME);
+	private async showWelcomeGuide (): Promise<void> {
+		const guide = await guideStore.getGuideFromKind(GuideKind.WELCOME);
 		if (guide.seen) return;
 
 		const guideElement = <IWelcomeGuideComponent> this.element("welcomeGuide");
 		guideElement.open();
 
-
 		guide.seen = true;
-		guideStore.updateGuide(guide.id, guide);
+		await guideStore.updateGuide(guide.id, guide);
 	}
 }

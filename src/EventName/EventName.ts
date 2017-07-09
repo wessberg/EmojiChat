@@ -13,5 +13,5 @@ export const EventName: IEventName = {
 	FOCUS_IN_STARTED: "FOCUS-in-started",
 	FOCUS_IN_ENDED: "FOCUS-in-ended",
 	FOCUS_OUT_STARTED: "FOCUS-out-started",
-	FOCUS_OUT_ENDED: "FOCUS-out-ended",
+	FOCUS_OUT_ENDED: "FOCUS-out-ended"
 };

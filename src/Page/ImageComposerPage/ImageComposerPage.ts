@@ -2,7 +2,7 @@ import {Page} from "../Page/Page";
 import {IImageComposerPage} from "./Interface/IImageComposerPage";
 import {prop, selector, uses} from "../../Component/Component/Component";
 import {ImageComponent} from "../../Component/ImageComponent/ImageComponent";
-import {animationOperations, emojiStore, eventUtil, navigationUtil, waitOperations} from "../../Service/Services";
+import {animationOperations, emojiStore, eventUtil, fingerprintStore, navigationUtil, waitOperations} from "../../Service/Services";
 import {BrowserResource} from "../../../Resource/BrowserResource";
 import {INavigationData} from "../../Service/NavigationUtil/Interface/INavigationUtil";
 import {IImageComponent} from "../../Component/ImageComponent/Interface/IImageComponent";
@@ -144,9 +144,12 @@ export class ImageComposerPage extends Page implements IImageComposerPage {
 	private async storeComposedImage (): Promise<void> {
 		if (this.src == null) throw new ReferenceError(`${this.constructor.name} could not store a composed image: There was no image src!`);
 
-		emojiStore.createEmoji({
+		const fingerPrint = await fingerprintStore.getFingerPrint();
+
+		await emojiStore.createEmoji({
 			base64Src: this.src,
-			date: new Date()
+			date: new Date(),
+			owner: fingerPrint
 		});
 		await this.showSavedInGallerySnackbar();
 	}

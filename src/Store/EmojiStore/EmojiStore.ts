@@ -1,36 +1,50 @@
 import {Store} from "../Store/Store";
 import {IEmojiStore} from "./Interface/IEmojiStore";
 import {IEmoji, IEmojiDict} from "../../Model/Emoji/Interface/IEmoji";
-import {CollectionKind} from "../../Service/StorageUtil/Interface/IStorageUtil";
-import {storageUtil} from "../../Service/Services";
+import {syncdb} from "../../Service/Services";
 import {ISortOptions} from "../Store/Interface/IStore";
+import {LocalDBChangeKind} from "@wessberg/localdb-common";
 
 export class EmojiStore extends Store implements IEmojiStore {
-	private static readonly EMOJI_COLLECTION: CollectionKind = "emoji";
+	private static readonly EMOJI_STORE_NAME: string = "emoji";
 
-	public getNewEmojis (existing: IEmoji[], sortOptions?: ISortOptions<IEmoji>): IEmoji[] {
-		const allEmojis = storageUtil.getAll<IEmoji>(EmojiStore.EMOJI_COLLECTION);
-
-		const filtered = allEmojis.filter(emoji => existing.find(existing => existing.id === emoji.id) == null);
-		return sortOptions == null ? filtered : this.sortEmojis(filtered, sortOptions);
+	public onEmojiAdded (handler: (emoji: IEmoji) => void): void {
+		syncdb.observe(change => {
+			if (change.changeKind === LocalDBChangeKind.ADD && change.store.name === EmojiStore.EMOJI_STORE_NAME) {
+				handler(change.value);
+			}
+		});
 	}
 
-	public readEmojis (sortOptions?: ISortOptions<IEmoji>): IEmoji[] {
-		const emojis = storageUtil.getAll<IEmoji>(EmojiStore.EMOJI_COLLECTION);
+	public onEmojiRemoved (handler: (emoji: IEmoji) => void): void {
+		syncdb.observe(change => {
+			if (change.changeKind === LocalDBChangeKind.DELETE && change.store.name === EmojiStore.EMOJI_STORE_NAME) {
+				handler(change.value);
+			}
+		});
+	}
+
+	public async readEmojis (sortOptions?: ISortOptions<IEmoji>): Promise<IEmoji[]> {
+		const hasStore = await syncdb.hasStore(EmojiStore.EMOJI_STORE_NAME);
+		if (!hasStore) return [];
+		const emojis = await syncdb.getAll<IEmoji>(EmojiStore.EMOJI_STORE_NAME);
 		if (sortOptions == null) return emojis;
 		return this.sortEmojis(emojis, sortOptions);
 	}
 
-	readEmoji (id: number): IEmoji|null {
-		return storageUtil.get<IEmoji>(id, EmojiStore.EMOJI_COLLECTION);
+	public async readEmoji (id: string): Promise<IEmoji|undefined> {
+		const hasStore = await syncdb.hasStore(EmojiStore.EMOJI_STORE_NAME);
+		if (!hasStore) return undefined;
+		return await syncdb.get<IEmoji>(EmojiStore.EMOJI_STORE_NAME, id);
 	}
 
-	createEmoji (emoji: IEmojiDict): IEmoji {
-		return storageUtil.add<IEmojiDict>(emoji, EmojiStore.EMOJI_COLLECTION);
+	public async createEmoji (emoji: IEmojiDict): Promise<IEmoji> {
+		return await syncdb.add<IEmoji>(EmojiStore.EMOJI_STORE_NAME, <IEmoji>emoji);
 	}
 
-	deleteEmoji (id: number): boolean {
-		return storageUtil.remove(id, EmojiStore.EMOJI_COLLECTION);
+	public async deleteEmoji (id: string): Promise<boolean> {
+		const result = await syncdb.remove(EmojiStore.EMOJI_STORE_NAME, id);
+		return result != null;
 	}
 
 	private sortEmojis (emojis: IEmoji[], sortOptions: ISortOptions<IEmoji>): IEmoji[] {

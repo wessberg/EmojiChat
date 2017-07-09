@@ -49,6 +49,7 @@ const PRODUCTION_PLUGINS: IRollupPlugin[] = Config.PRODUCTION ? [
 	{
 		order: 5,
 		plugin: gzip({
+			algorithm: "zlib",
 			options: {
 				level: 9
 			},

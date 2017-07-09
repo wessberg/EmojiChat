@@ -19,9 +19,9 @@ and puts an Emoji on top of your head that represents your current mood.
 
 ## Technology
 
-EmojiChat is a showcase of lots of buzzwords and new technologies:
+EmojiChat use a variety of modern web technologies:
 
-- It is **Offline-First**. It uses a **Service-Worker** for precaching static assets and loads even when you are offline. It ships a custom **Storage** implementation for Offline data persistence based on LocalStorage rather than going over the network.
+- It is **Offline-First**. It uses a **Service-Worker** for precaching static assets and loads even when you are offline. It ships a custom-built offline-first, decentralized client-to-client database `SyncDB` for data persistence based on IndexedDB.
 - It is **Mobile-First** and fully **responsive**. It is built from the ground-up to look and feel great on mobile devices and treats Mobile as separate compile-target.
 - It follows the **Material Design** specification strictly. All elements, such as the `AppBarComponent`, `CardComponent`, `RippleComposite` and `FloatingButtonComponent` are custom and thorough implementations of the spec.
 - It is **fully vanilla**, entirely built using **built-in browser and EcmaScript APIs and data structures** such as:
@@ -60,9 +60,6 @@ After installing the dependencies, there's a variety of build-scripts you can ru
 All of the `build` scripts also have equal `watch` or `w` variants for the same purpose, except they watch the source files and recompiles when something changes.
 All of the `watch` scripts also have equal `serve` or `s` variants which serves a simple custom development server so you can easily work from localhost.
 
-## Quirks
+## How the shared gallery works
 
-Due to the *Offline-First* nature of the app, the way Storage works is that *base64* versions of generated images are stored in `localStorage`.
-Whenever that quota is exceeded, new images will not be saved. A better solution may be written, but for now it stands as a showcase.
-
-
+The shared gallery is pretty unique. Every picture taken by *any* EmojiChat user will end up in this gallery. Only the one who took the picture can remove it again. The data persistence model is fully decentralized. There is no remote database. Rather, you communicate with other clients currently connected to EmojiChat to replicate and distribute your local database contents so that the gallery contents are the same between all of you.

@@ -318,7 +318,7 @@ export const Resource: IResource = {
 							},
 							appleTouchIcon (steps?: number) {
 								return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_DIST_PATH, steps);
-							},
+							}
 						},
 						emoji: {
 							directory (steps?: number) {
@@ -441,7 +441,7 @@ export const Resource: IResource = {
 							},
 							appleTouchIcon (steps?: number) {
 								return relativePath(IMAGE_MANIFEST_APPLE_TOUCH_ICON_SRC_PATH, steps);
-							},
+							}
 						},
 						emoji: {
 							directory (steps?: number) {
@@ -551,7 +551,7 @@ export const Resource: IResource = {
 								return relativePath(TRACKER_LIB_MODEL6_SRC_PATH, steps);
 							}
 						}
-					},
+					}
 				},
 				entry (steps?: number) {
 					return relativePath(ENTRY_PATH, steps);
