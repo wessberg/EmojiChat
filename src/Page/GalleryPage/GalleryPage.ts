@@ -39,7 +39,7 @@ export class GalleryPage extends Page implements IGalleryPage {
         }
 
         #grid > gallery-item-element {
-            margin: calc(var(--distance-minimum) / 2);
+            margin: var(--distance-tiny);
             max-width: 100%;
         }
 

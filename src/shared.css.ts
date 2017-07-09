@@ -177,6 +177,7 @@ export const sharedCss =
 
           /* Padding/Margin (distance between elements in general) */
 
+					--distance-tiny: 8px;
           --distance-minimum: 16px;
           --distance-regular: 24px;
           --distance-large: 34px;

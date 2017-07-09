@@ -59,14 +59,15 @@
     "s:production": "npm run serve:all:production",
     "s:desktop:production": "npm run serve:desktop:production",
     "s:mobile:production": "npm run serve:mobile:production",
-    "s:all:production": "npm run serve:all:production"
+    "s:all:production": "npm run serve:all:production",
+    "deploy": "npm run build:production && ssh -i ~/.ssh/id.rsa frra@ssh.itu.dk 'cd public_html && rm -r -f EmojiChat && mkdir EmojiChat' && cd dist && scp -i ~/.ssh/id.rsa -r . frra@ssh.itu.dk:public_html/EmojiChat/"
   },
   "author": "Frederik Wessberg",
   "license": "MIT",
   "devDependencies": {
     "@types/mime": "1.3.1",
     "@types/node": "^8.0.9",
-    "@wessberg/codeanalyzer": "^1.0.38",
+    "@wessberg/codeanalyzer": "^1.0.39",
     "@wessberg/fileloader": "^1.0.3",
     "@wessberg/filesaver": "^1.0.1",
     "@wessberg/iteration": "^1.0.2",
@@ -92,6 +93,6 @@
   "dependencies": {
     "@wessberg/environment": "^1.0.1",
     "@wessberg/globalobject": "^1.0.5",
-    "@wessberg/syncdb": "0.0.4"
+    "@wessberg/syncdb": "0.0.6"
   }
 }
