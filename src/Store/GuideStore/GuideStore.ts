@@ -6,7 +6,8 @@ import {syncdb} from "../../Service/Services";
 export class GuideStore extends Store implements IGuideStore {
 	private static readonly GUIDE_STORE_NAME: string = "guide";
 	private isReady: boolean = false;
-	private readySubscribers: Set<(() => void)> = new Set();
+
+	// private readySubscribers: Set<(() => void)> = new Set();
 
 	constructor (guides?: IGuideDict[]) {
 		super();
@@ -24,8 +25,8 @@ export class GuideStore extends Store implements IGuideStore {
 			}
 		}));
 		this.isReady = true;
-		this.readySubscribers.forEach(subscriber => subscriber());
-		this.readySubscribers.clear();
+		// this.readySubscribers.forEach(subscriber => subscriber());
+		// this.readySubscribers.clear();
 		return guideEntries;
 	}
 

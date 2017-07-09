@@ -173,9 +173,7 @@ export class HomePage extends Page implements IHomePage {
         <aside id="info">
             <h5>Looking for your face...</h5>
         </aside>
-        <blocked-camera-dialog-element id="blockedCameraDialog" dismissable>
-
-        </blocked-camera-dialog-element>
+        <blocked-camera-dialog-element id="blockedCameraDialog" dismissable></blocked-camera-dialog-element>
 
 		`;
 	}

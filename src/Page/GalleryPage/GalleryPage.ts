@@ -3,7 +3,7 @@ import {IGalleryPage} from "./Interface/IGalleryPage";
 import {prop, selector, uses} from "../../Component/Component/Component";
 import {BrowserResource} from "../../../Resource/BrowserResource";
 import {GalleryItemComponent} from "../../Component/GalleryItemComponent/GalleryItemComponent";
-import {childMutationObserver, dateUtil, emojiStore, eventUtil, fingerprintStore} from "../../Service/Services";
+import {childMutationObserver, dateUtil, emojiStore, eventUtil, fingerprintStore, guideStore} from "../../Service/Services";
 import {IImageComponent} from "../../Component/ImageComponent/Interface/IImageComponent";
 import {IEmoji} from "../../Model/Emoji/Interface/IEmoji";
 import {IconComponent} from "../../Component/IconComponent/IconComponent";
@@ -11,9 +11,12 @@ import {IPropChangeRecord} from "../../Discriminator/PropObserverConsumer/IPropO
 import {EventName} from "../../EventName/EventName";
 import {IGalleryItemComponent} from "../../Component/GalleryItemComponent/Interface/IGalleryItemComponent";
 import {ZoomableImageComponent} from "../../Component/ZoomableImageComponent/ZoomableImageComponent";
+import {GuideKind} from "../../Model/Guide/Interface/IGuide";
+import {IGalleryGuideComponent} from "../../Component/GalleryGuideComponent/Interface/IGalleryGuideComponent";
+import {GalleryGuideComponent} from "../../Component/GalleryGuideComponent/GalleryGuideComponent";
 
 @selector("gallery-page-element")
-@uses([GalleryItemComponent, IconComponent, ZoomableImageComponent])
+@uses([GalleryItemComponent, IconComponent, ZoomableImageComponent, GalleryGuideComponent])
 export class GalleryPage extends Page implements IGalleryPage {
 	public static routeName = new RegExp(`${BrowserResource.path.root}gallery`);
 	private static readonly HAS_CONTENT_ATTRIBUTE_NAME = "has-content";
@@ -79,8 +82,8 @@ export class GalleryPage extends Page implements IGalleryPage {
                 </button-element>
             </anchor-element>
         </section>
-        <section id="grid">
-        </section>
+        <section id="grid"></section>
+        <gallery-guide-element id="galleryGuide" dismissable></gallery-guide-element>
 		`;
 	}
 
@@ -126,6 +129,7 @@ export class GalleryPage extends Page implements IGalleryPage {
 
 	public async didBecomeVisible (): Promise<void> {
 		await super.didBecomeVisible();
+		await this.showGalleryGuide();
 	}
 
 	protected async connectedCallback (): Promise<void> {
@@ -237,5 +241,16 @@ export class GalleryPage extends Page implements IGalleryPage {
 
 	private async onRemoveButtonClicked (emoji: IEmoji): Promise<void> {
 		await emojiStore.deleteEmoji(emoji.id);
+	}
+
+	private async showGalleryGuide (): Promise<void> {
+		const guide = await guideStore.getGuideFromKind(GuideKind.GALLERY);
+		if (guide.seen) return;
+
+		const guideElement = <IGalleryGuideComponent> this.element("galleryGuide");
+		guideElement.open();
+
+		guide.seen = true;
+		await guideStore.updateGuide(guide.id, guide);
 	}
 }

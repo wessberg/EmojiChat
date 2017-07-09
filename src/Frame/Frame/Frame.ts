@@ -79,7 +79,7 @@ export class Frame extends Component implements IFrame {
 		eventUtil.listen(this, EventName.CLICK, this.element("menuButton"), this.onClickedMenu);
 
 		// Sometime in the future, show the welcome guide and begin registering the service worker.
-		this.showWelcomeGuide();
+		await this.showWelcomeGuide();
 		serviceWorkerUtil.register(Resource.app.path.dist.serviceWorker(1));
 	}
 

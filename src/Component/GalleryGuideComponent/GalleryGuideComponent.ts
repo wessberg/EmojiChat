@@ -1,12 +1,12 @@
 import {DialogComponent} from "../DialogComponent/DialogComponent";
-import {IWelcomeGuideComponent} from "./Interface/IWelcomeGuideComponent";
+import {IGalleryGuideComponent} from "./Interface/IGalleryGuideComponent";
 import {selector, uses} from "../Component/Component";
 import {IconComponent} from "../IconComponent/IconComponent";
 import {ButtonComponent} from "../ButtonComponent/ButtonComponent";
 
-@selector("welcome-guide-element")
+@selector("gallery-guide-element")
 @uses([IconComponent, ButtonComponent])
-export class WelcomeGuideComponent extends DialogComponent implements IWelcomeGuideComponent {
+export class GalleryGuideComponent extends DialogComponent implements IGalleryGuideComponent {
 
 	public static styles (): string {
 		// language=CSS
@@ -71,15 +71,14 @@ export class WelcomeGuideComponent extends DialogComponent implements IWelcomeGu
 		// language=HTML
 		return `
         <div id="container">
-            <icon-element icon="emoji-people"></icon-element>
-            <h6>Welcome to EmojiChat!</h6>
+            <h6>This is the shared gallery!</h6>
             <p>
-                It's simple. EmojiChat tracks your emotions and paints an emoji
-                in top of your head. You can take all the pictures you want and
-                send them to your friends! Oh, and it works offline.
+                This is the central hub for everyone's Emojis! When you snap an EmojiChat, it
+                will be placed here. You can only remove your own Emojis. New Emojis will be added
+                to the gallery in real-time, whether they are yours or someone else's.
             </p>
             <button-element light no-background width="70" accent as-color>
-                <p>Okay</p>
+                <p>Alright</p>
             </button-element>
         </div>
 		`;

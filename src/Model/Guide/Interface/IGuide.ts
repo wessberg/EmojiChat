@@ -1,5 +1,5 @@
 export enum GuideKind {
-	WELCOME
+	WELCOME, GALLERY
 }
 
 export interface IGuideDict {
