@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wessberg/EmojiChat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wessberg/EmojiChat/issues"
+  },
   "scripts": {
     "compile": "tsc -p tsconfig.tool.json",
     "clean:dist": "rm -r -f dist",
